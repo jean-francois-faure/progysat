@@ -1,0 +1,7 @@
+{% extends "modeladmin/index.html" %}
+{% comment %}Add an export button{% endcomment %}
+
+{% block header_extra %}
+    <a href="/export/resources" class="button icon icon-download bicolor">Export</a>
+    {{ block.super }}
+{% endblock %}

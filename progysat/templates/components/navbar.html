@@ -1,0 +1,74 @@
+{% load static %}
+{% load main_tags %}
+
+<div style="position: fixed; top: 0; left: 0; right: 0; z-index: 30; background: white">
+  <div class="container">
+    <nav class="navbar" id="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item logo-holder" href="/">
+          <img src="/static/img/progysat.png" width="256" height="47">
+          <span class="navbar-additional-logo">
+            <img src="/static/img/theia.png" width="40" height="42">
+            <span style="max-width: 198px;display: inline-block;position: relative;bottom: 6px;"
+                  class="is-size-7 ml-2">Animation Régionale Pays du Sud du pôle Theia</span>
+          </span>
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbar-menu" class="navbar-menu">
+        <div class="navbar-end">
+          {% for child_page in home_page.get_children.live %}
+            {% if child_page.show_in_menus %}
+              {% if child_page.get_children %}
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link">
+                    {{ child_page.title }}
+                  </a>
+                  <div class="navbar-dropdown">
+                    {% for grandchild_page in child_page.get_children.live %}
+                      <a class="navbar-item {% if grandchild_page.slug in request.path %} active {% endif %}"
+                         href="{{ grandchild_page.url }}">
+                        {{ grandchild_page.title }}
+                      </a>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% else %}
+                {% if child_page.url == '/actualites/' %}
+                  <div class="navbar-item {% if child_page.slug in request.path %} active {% endif %}">
+                    <a class="button is-primary"
+                       href="{{ child_page.url }}">
+                      {{ child_page.title }}
+                    </a>
+                  </div>
+                {% else %}
+                  <a class="navbar-item {% if child_page.slug in request.path %} active {% endif %}"
+                     href="{{ child_page.url }}">
+                    {{ child_page.title }}
+                  </a>
+                {% endif %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+
+          <div class="navbar-item">
+            <div class="buttons">
+              <a href="{{ resources_link }}" class="button is-primary">
+                <span class="icon">
+                  {% include "components/icon.html" with size="16" name="map-line-2" %}
+                </span>
+                <span>Ressources</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>

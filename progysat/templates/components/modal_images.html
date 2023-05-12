@@ -1,0 +1,18 @@
+{% load main_tags wagtailimages_tags %}
+
+{% for image_ in modal_images %}
+  {% image image_ original as image %}
+  <div class="modal" id="{% image_id_from_url image.url %}">
+    <div class="modal-background"
+         onclick="document.getElementById('{% image_id_from_url image.url %}').classList.remove('is-active')"></div>
+    <div class="modal-content">
+      <figure class="image">
+        <img src="{{ image.url }}">
+      </figure>
+
+    </div>
+    <button onclick="document.getElementById('{% image_id_from_url image.url %}').classList.remove('is-active')"
+            class="modal-close is-large"
+            aria-label="close"></button>
+  </div>
+{% endfor %}

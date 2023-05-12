@@ -1,0 +1,78 @@
+{% load static %}
+
+<div class="section has-background-secondary-light py-4">
+  <div class="container">
+    <div class="mb-4">
+      <h3 class="title is-3 mb-1 has-text-centered">Je suis</h3>
+      <div style="display: flex; justify-content: space-between; max-width: 620px; margin: auto">
+        <button v-for="profile in profiles"
+                :class="selectedProfiles[profile.slug] ? '' : 'is-outlined'"
+                @click="toggleProfile(profile.slug)"
+                class="button is-large is-rounded is-secondary"
+                style="width: 190px">
+          [[ profile.name ]]
+        </button>
+      </div>
+
+    </div>
+    <div class="columns mt-1">
+      <div class="column is-4 i-am-profiles">
+        <h3 class="title is-4">Les ressources qui m'intéressent</h3>
+        <div class="tag-holder">
+          <button v-for="type in resourceTypes"
+                  :class="{'is-outlined': !selectedResourceTypes[type.slug], 'is-disabled': !isResourceTypeActive(type.slug)}"
+                  @click="toggleType(type.slug)"
+                  class="button is-rounded is-primary">
+            [[ type.name ]]
+          </button>
+          <button @click="resetTypes" class="button is-text is-rounded">Toutes</button>
+        </div>
+      </div>
+      <div class="column is-4">
+        <h3 class="title is-4">Les thématiques qui m'intéressent</h3>
+        <div class="elements-holder">
+          <button v-for="thematic in thematics" class="button is-rounded"
+                  :class="'is-' + thematic.slug + ' ' + (selectedThematics[thematic.slug] ? '' : 'is-outlined')"
+                  @click="toggleThematic(thematic.slug)">
+            <span class="icon">
+              <img :src="thematic.icon">
+            </span>
+            <span>[[ thematic.name ]]</span>
+          </button>
+          <button @click="resetThematics" class="button is-text is-rounded">Toutes</button>
+        </div>
+        <h3 class="title is-4 mt-5 mb-2">Recherche par mot-clé</h3>
+        <input @input="updateFilters" v-model="searchInput" type="text" class="input"
+               placeholder="Exemple : parcelles agricoles">
+      </div>
+      <div class="column is-4">
+        <h3 class="title is-4">Les zones qui m'intéressent</h3>
+        <div class="elements-holder">
+          <button v-for="zone in zones" class="button is-rounded is-secondary"
+                  :class="selectedZones[zone.code] ? '' : 'is-outlined'"
+                  @click="toggleZone(zone.code)">
+            <span class="icon" style="">
+              <img :src="zone.icon">
+            </span>
+            <span>[[ zone.name ]]</span>
+          </button>
+          <button class="button is-rounded is-secondary"
+                  :class="selectedZones[0] ? '' : 'is-outlined'"
+                  @click="toggleZone(0)">
+            <span class="icon" style="">
+              <img src="{% static 'img/zones/world.svg' %}">
+            </span>
+            <span>Ressources globales</span>
+          </button>
+          <button @click="resetZones" class="button is-text is-rounded">Toutes</button>
+        </div>
+        <h3 class="title is-4 mt-5 mb-2">Ressources Progysat</h3>
+        <label class="checkbox">
+          <input @change="updateFilters" v-model="isOnlyProgysat" type="checkbox">
+          Afficher <span class="has-text-weight-bold">uniquement</span> les ressources crées par <span
+                class="has-text-weight-bold">Progysat</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

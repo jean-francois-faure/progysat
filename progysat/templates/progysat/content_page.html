@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load main_tags %}
+
+{% block content %}
+  <div class="container pt-6">
+    {% include "components/breadcrumbs.html" %}
+
+    <h1 class="title is-1">{{ page.title }}</h1>
+
+    {% include "components/free_body.html" with body=page.specific.body %}
+  </div>
+{% endblock %}

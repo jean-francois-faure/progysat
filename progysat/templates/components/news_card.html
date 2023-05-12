@@ -1,0 +1,24 @@
+{% load main_tags %}
+{% load wagtailimages_tags %}
+{% load wagtailcore_tags %}
+
+<a href="{% news_page_url news %}">
+  <div class="card" {% if width %} style="width: {{ width }}px;"{% endif %}
+                    {% if full_height %} style="height: 100%" {% endif %}>
+    <div class="card-image">
+      {% image news.image original as news_image %}
+      <figure class="image has-ratio
+              {% if large_by_default %}{% if is_small %}is-4by3{% else %}is-2by1{% endif %}{% else %}is-4by3{% endif %}"
+              style="background-image: url('{{ news_image.url }}'); background-size: cover; background-position: center">
+      </figure>
+    </div>
+    <div class="card-content">
+      <h3 class="title is-5">{{ news.name }}</h3>
+      <p class="is-size-7 has-text-primary">{{ news.publication_date | date }}</p>
+      <p>{{ news.introduction|richtext }}</p>
+      <div class="mt-3">
+        <a href="{{ news.link }}" class="button is-secondary">Lire la suite</a>
+      </div>
+    </div>
+  </div>
+</a>

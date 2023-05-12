@@ -1,0 +1,99 @@
+{% load static %}
+{% load main_tags %}
+{% load wagtailcore_tags %}
+
+{% with main_thematic=resource.get_main_thematic %}
+  <a href="{{ resource.link }}" {% if resource.is_download %}download{% else %}target="_blank"{% endif %}>
+    <div class="card resource-card footer-at-bottom
+              {% if main_thematic %}
+                has-background-{{ main_thematic.slug }}-light
+              {% else %}
+                has-background-std
+              {% endif %}">
+      <div class="card-content">
+        <div class="is-flex" style="justify-content: space-between; font-size: 11px">
+          <div>
+            {% if main_thematic %}
+              <span class="icon">
+                <img src="{{ main_thematic.icon_or_default }}">
+              </span>
+              {{ main_thematic.name }}
+            {% else %}
+              <span>
+                <span class="icon">
+                {% if resource.thematics.count %}
+                {% else %}
+                  <img src="{% static 'img/thematics/unspecified.svg' %}">
+                {% endif %}
+                </span>
+                {% if resource.thematics.count %}
+                  Plusieurs thématiques
+                {% else %}
+                  Sans thématique
+                {% endif %}
+              </span>
+            {% endif %}
+          </div>
+          {% if resource.zones.first %}
+            <div>
+              <span class="icon">
+                <img src="{% static 'img/zones' %}/{{ resource.zones.first.slug }}.svg">
+              </span>
+              {{ resource.zones.first.name }}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="my-5 has-text-centered">
+          {% if main_thematic %}
+            <img src="{{ main_thematic.icon_or_default }}" style="width: 107px ; height: 107px">>
+          {% else %}
+            {% if resource.thematics.count %}
+              <img src="{% static 'img/thematics/multiple.svg' %}"
+                   style="width: 107px ; height: 107px">
+            {% else %}
+              <img src="{% static 'img/thematics/unspecified_color.svg' %}"
+                   style="width: 107px ; height: 107px">
+            {% endif %}
+          {% endif %}
+        </div>
+        <div>
+          <span class="has-text-weight-bold">{{ resource.resource_type }}</span>
+        </div>
+        <h3 class="title is-5">{{ resource.name }}</h3>
+        <div>
+          {{ resource.short_description|richtext }}
+        </div>
+      </div>
+
+      <div class="card-footer" style="flex-direction: column; padding: 24px; border: none;">
+        <div>
+          {% if resource.source_name %}
+            <span>
+            <span class="icon"><img src="{% static 'img/source.svg' %}"
+                                    style="width: 12px; height: 12px;"></span>
+            Source : {{ resource.source_name }}
+          </span>
+          {% endif %}
+        </div>
+        {% if resource.geo_dev_creation %}
+          <div>
+          <span>
+            <span class="icon"><img src="{% static 'img/resource_is_progysat.svg' %}"
+                                    style="width: 12px; height: 12px;"></span>
+            Ressource Progysat
+          </span>
+          </div>
+        {% endif %}
+        <div class="mt-2">
+          <button class="button is-secondary is-medium">
+            <span class="icon">
+              {% include "components/icon.html" with size="16" name="share-box" %}
+            </span>
+            <span>Accéder à la ressource</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </a>
+{% endwith %}

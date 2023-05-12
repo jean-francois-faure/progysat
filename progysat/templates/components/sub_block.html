@@ -1,0 +1,8 @@
+{% load wagtailcore_tags %}
+
+<div
+        {% if block.value.color %}
+          class="has-background-{{ block.value.color }}"
+        {% endif %}>
+  {% include_block block.value.paragraph %}
+</div>

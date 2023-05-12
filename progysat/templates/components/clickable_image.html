@@ -1,0 +1,5 @@
+{% load main_tags %}
+
+<figure class="image" onclick="document.getElementById('{% image_id_from_url image.url %}').classList.add('is-active')">
+  <img src="{{ image.url }}" style="max-width: 400px">
+</figure>

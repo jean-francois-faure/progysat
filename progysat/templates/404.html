@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}La page n'a pas été trouvée{% endblock %}
+
+{% block body_class %}template-404{% endblock %}
+
+{% block content %}
+  <div class="container my-6">
+    <h1 class="title is-1">La page n'a pas été trouvée</h1>
+
+    <p class="is-size-5">
+      Elle a peut-être été déplacée, ou n'existe pas.
+    </p>
+    <div class="my-6 has-text-centered">
+      <a href="/" class="button is-primary is-medium">Retour à l'accueil</a>
+    </div>
+  </div>
+{% endblock %}

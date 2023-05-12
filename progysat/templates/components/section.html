@@ -1,0 +1,49 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="section {% if block.value.color %} has-background-{{ block.value.color }}{% else %}px-0{% endif %}">
+
+  {% if block.value.image %}
+    <div class="columns">
+      {% if block.value.position == "left" %}
+        <div class="column is-4">
+          {% image block.value.image original as image %}
+          <figure class="m-0">
+            <img src="{{ image.url }}">
+          </figure>
+        </div>
+      {% endif %}
+
+      <div class="column is-8">
+        {% include_block block.value.paragraph %}
+      </div>
+
+      {% if block.value.position == "right" %}
+        <div class="column is-4">
+          {% image block.value.image original as image %}
+          <figure class="m-0">
+            <img src="{{ image.url }}">
+          </figure>
+        </div>
+      {% endif %}
+    </div>
+  {% else %}
+    {% include_block block.value.paragraph %}
+  {% endif %}
+
+  {% for sub_block in block.value.sub_section %}
+    <div class="section {% if sub_block.color %}has-background-{{ sub_block.color }}{% else %}px-0{% endif %}">
+      {% include_block sub_block.paragraph %}
+      {% if sub_block.columns %}
+        <div class="columns">
+          {% for column in sub_block.columns %}
+            <div class="column">
+              <div class="{% if column.color %}has-background-{{ column.color }} p-4{% endif %}">
+                {% include_block column.paragraph %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>

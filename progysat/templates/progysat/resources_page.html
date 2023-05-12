@@ -1,0 +1,481 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load main_tags %}
+
+{% block content %}
+  <div class="container pt-3 mb-5">
+    {% include "components/breadcrumbs.html" %}
+
+    <h1 class="title is-1">Les ressources</h1>
+  </div>
+  <div id="app">
+    {% include "elements/resources_page/filters.html" %}
+
+    <div class="section container">
+      <div>
+        <p class="has-text-weight-bold my-4">
+          <template v-if="filteredResources.length">
+            [[ filteredResources.length ]] résultats correspondent à votre recherche
+          </template>
+          <template v-else>
+            aucun résultat correspondant
+          </template>
+        </p>
+        <div class="mb-6" style="display: flex; justify-content: center">
+          <div class="tabs is-toggle is-toggle-rounded">
+            <ul>
+              <li :class="isMapView ? '' : 'is-active'" @click="isMapView = false">
+                <a>
+                <span class="icon is-small"
+                      style="line-height: 0">{% include "components/icon.html" with name="list-check" size="16" %}</span>
+                  <span>Voir la liste</span>
+                </a>
+              </li>
+              <li :class="isMapView ? 'is-active' : ''" @click="enableMapView()">
+                <a>
+                <span class="icon is-small" style="line-height: 0">
+                  {% include "components/icon.html" with name="earth" size="16" %}
+                </span>
+                  <span>Voir sur la carte</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {% include "elements/resources_page/resources_list_view.html" %}
+
+      {% include "elements/resources_page/resources_map_view.html" %}
+
+    </div>
+  </div>
+
+{% endblock content %}
+
+{% block extra_js %}
+  <script>
+      var thematics = JSON.parse('{{ thematics | escapejs }}');
+      var thematicBySlug = {};
+      thematics.forEach(function (thematic) {
+          thematicBySlug[thematic.slug] = thematic;
+      });
+      console.log("### thematicBySlug", thematicBySlug);
+      var resourceTypes = JSON.parse('{{ resource_types | escapejs }}');
+      var resourceTypeBySlug = {};
+      var selectedResourceTypes = {};
+      resourceTypes.forEach(function (resourceType) {
+          resourceTypeBySlug[resourceType.slug] = resourceType;
+          selectedResourceTypes[resourceType.slug] = false;
+      });
+      var selectedThematics = {};
+      thematics.forEach(function (thematic) {
+          selectedThematics[thematic.slug] = false
+      });
+      var zones = JSON.parse('{{ zones | escapejs }}');
+      var zoneBySlug = {};
+      zones.forEach(function (zone) {
+          zoneBySlug[zone.code] = zone;
+      });
+      var selectedZones = {};
+      zones.forEach(function (zone) {
+          selectedZones[zone.code] = false;
+      });
+      var countries = JSON.parse('{{ countries | escapejs }}');
+      var countryParameters = {};
+      var zoneByCountry = {};
+      countries.forEach(country => {
+          countryParameters[country.code] = country;
+          zoneByCountry[country.code] = country.zone;
+      });
+      var zoneParameters = {};
+      zones.forEach(zone => {
+          zoneParameters[zone.code] = zone;
+      });
+      var profiles = JSON.parse('{{ profiles | escapejs }}');
+      var selectedProfiles = {};
+      Object.keys(profiles).forEach(profileSlug => {
+          selectedProfiles[profileSlug] = false;
+      });
+      var markers = [];
+
+      function normalize(str) {
+          return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      }
+
+      function startsWith(str, other) {
+          return normalize(str).indexOf(normalize(other)) === 0;
+      }
+
+
+      Vue.createApp({
+          delimiters: ['[[', ']]'],
+          data() {
+              return {
+                  filteredResources: [],
+                  isMapView: false,
+                  isOnlyProgysat: false,
+                  map: null,
+                  profiles: profiles,
+                  resources: JSON.parse('{{ resources | escapejs }}'),
+                  countryParameters: countryParameters,
+                  searchInput: '',
+                  resourceTypes: resourceTypes,
+                  resourceTypesPerProfile: JSON.parse('{{ resource_types_per_profile | escapejs }}'),
+                  selectedProfiles: selectedProfiles,
+                  selectedResourceTypes: selectedResourceTypes,
+                  selectedThematics: selectedThematics,
+                  selectedZones: selectedZones,
+                  thematicBySlug: thematicBySlug,
+                  thematics: thematics,
+                  zoneBySlug: zoneBySlug,
+                  zones: zones,
+              }
+          },
+          methods: {
+              enableMapView() {
+                  // load mapbox js and css files
+                  this.isMapView = true;
+                  var head = document.getElementsByTagName('head')[0];
+                  var link = document.createElement('link');
+                  link.rel = 'stylesheet';
+                  link.type = 'text/css';
+                  link.href = '{% static 'css/mapbox-gl.css' %}';
+                  link.media = 'all';
+                  head.appendChild(link);
+
+                  var script = document.createElement('script');
+                  script.onload = () => {
+                      this.initMap();
+                      this.updateMap();
+                  };
+                  script.src = '{% static 'js/mapbox-gl.js' %}';
+                  document.head.appendChild(script); //or something of the likes
+              },
+              initMap() {
+                  mapboxgl.accessToken = 'pk.eyJ1IjoibWF4aW1ldGVsZXNjb29wIiwiYSI6ImNrbHJrbWV6ajAzd20ycXB2YjZodzZ0ancifQ.VLDpa6x-j-3kh65_S-H_rA';
+
+                  this.map = new mapboxgl.Map({
+                      container: 'map',
+                      style: 'mapbox://styles/maximetelescoop/ckz2nizcg007c14nt4j1x4nc9',
+                      center: [22.3688733, 1.9171377], // starting position [lng, lat]
+                      zoom: 2,
+                  });
+                  window.map = this.map;
+                  this.map.on('zoom', () => {
+                      this.updateMap();
+                  });
+                  map.addControl(new mapboxgl.NavigationControl({showCompass: false}));
+              },
+              resetThematics() {
+                  Object.keys(this.selectedThematics).forEach(key => this.selectedThematics[key] = false);
+                  this.updateFilters();
+              },
+              resetTypes() {
+                  Object.keys(this.selectedResourceTypes).forEach(key => this.selectedResourceTypes[key] = false);
+                  this.updateFilters();
+              },
+              resetZones() {
+                  Object.keys(this.selectedZones).forEach(key => this.selectedZones[key] = false);
+                  this.updateFilters();
+              },
+              toggleProfile(profile) {
+                  this.selectedProfiles[profile] = !this.selectedProfiles[profile];
+                  if (!profile || Object.values(this.selectedProfiles).filter(value => value).length !== 1) {
+                      // unselecting a profile or if multiple profiles are selected,
+                      // select all resource types
+                      Object.keys(this.selectedResourceTypes).map(key => this.selectedResourceTypes[key] = false);
+                  } else {
+                      var selectedProfile = Object.entries(this.selectedProfiles).filter(value => value[1])[0][0];
+                      // select all resource types for that profile, unselect the rest
+                      Object.keys(this.selectedResourceTypes).map(key => this.selectedResourceTypes[key] = this.resourceTypesPerProfile[selectedProfile].indexOf(key) !== -1);
+                  }
+                  this.updateFilters();
+              },
+              toggleThematic(thematic) {
+                  this.selectedThematics[thematic] = !this.selectedThematics[thematic];
+                  this.updateFilters();
+              },
+              toggleType(type) {
+                  this.selectedResourceTypes[type] = !this.selectedResourceTypes[type];
+                  this.updateFilters();
+              },
+              toggleZone(zone) {
+                  this.selectedZones[zone] = !this.selectedZones[zone];
+                  this.updateFilters();
+              },
+              updateFilters() {
+                  var filtered = [];
+                  this.resources.forEach((resource) => {
+                      // PROFILES
+                      var atLeastOneSelectedProfile = Object.values(this.selectedProfiles).some(function (e) {
+                          return e
+                      });
+                      var atLeastOneCorresponding = false;
+                      if (atLeastOneSelectedProfile) {
+                          resource.profiles.forEach((profile) => {
+                              if (this.selectedProfiles[profile]) {
+                                  atLeastOneCorresponding = true;
+                              }
+                          })
+
+                          if (!atLeastOneCorresponding) {
+                              return;
+                          }
+
+                      }
+
+                      // RESOURCE TYPES
+                      var atLeastOneSelectedType = Object.values(this.selectedResourceTypes).some(function (e) {
+                          return e
+                      });
+                      atLeastOneCorresponding = false;
+                      if (atLeastOneSelectedType) {
+                          resource.types.forEach((type) => {
+                              if (this.selectedResourceTypes[type]) {
+                                  atLeastOneCorresponding = true;
+                              }
+                          })
+
+                          if (!atLeastOneCorresponding) {
+                              return;
+                          }
+
+                      }
+
+                      // THEMATICS
+                      atLeastOneCorresponding = false;
+                      var atLeastOneSelectedThematic = Object.values(this.selectedThematics).some(function (e) {
+                          return e
+                      });
+                      if (atLeastOneSelectedThematic) {
+                          resource.thematics.forEach((thematic) => {
+                              if (this.selectedThematics[thematic]) {
+                                  atLeastOneCorresponding = true;
+                              }
+                          })
+
+                          if (!atLeastOneCorresponding) {
+                              return;
+                          }
+                      }
+
+                      // ZONES
+                      if (!resource.is_global) {
+                          var atLeastOneSelectedZone = Object.values(this.selectedZones).some(function (e) {
+                              return e
+                          });
+                          // if zone is explicitely set for resource, check that zone is selected
+                          if (atLeastOneSelectedZone && resource.zone && !this.selectedZones[resource.zone]) {
+                              return;
+                          }
+                          // check at least one country is in a selected zone
+                          if (atLeastOneSelectedZone && !resource.global && !resource.zone) {
+                              atLeastOneCorresponding = false;
+
+                              resource.countries.forEach(country => {
+                                  var zone = countryParameters[country].zone;
+                                  if (zone && this.selectedZones[zone]) {
+                                      atLeastOneCorresponding = true;
+                                  }
+                              });
+                              if (!atLeastOneCorresponding) {
+                                  return;
+                              }
+                          }
+                      }
+
+
+                      //  SEARCH INPUT
+                      if (this.searchInput) {
+                          var searchInput = this.searchInput.toLowerCase();
+                          var words = resource.name.toLowerCase().split(" ");
+                          if (!words.some(function (word) {
+                              return startsWith(word, searchInput)
+                          })) {
+                              return;
+                          }
+                      }
+
+                      // PROGYSAT CREATION
+                      if (this.isOnlyProgysat) {
+                          if (!resource.geo_dev_creation) {
+                              return false;
+                          }
+                      }
+
+                      filtered.push(resource);
+                  });
+                  console.log("### updating filteredResources", filtered);
+                  this.filteredResources = filtered;
+
+                  if (this.isMapView) {
+                      this.updateMap();
+                  }
+              },
+              updateMap() {
+                  const isShowingCountries = this.map.getZoom() > 2.9;
+                  // reset markers
+                  for (var marker of markers) {
+                      marker.remove();
+                  }
+                  markers = [];
+                  console.log("### updateMap", isShowingCountries, this.filteredResources, markers);
+                  // building a resourcePerCountry dict
+                  var resourcesPerCountry = {};
+                  var resourcesPerZone = {};
+                  var addedResourcePerZone = {};
+                  zones.forEach(zone => {
+                      addedResourcePerZone[zone.code] = {}
+                  });
+                  var atLeastOneSelectedZone = Object.values(this.selectedZones).some(function (e) {
+                      return e
+                  });
+
+                  for (const resource of this.filteredResources) {
+                      var resourceCountries = resource.countries;
+                      if (resource.is_global) {
+                          resourceCountries = countries.map(country => country.code);
+                      }
+                      for (const country of resourceCountries) {
+                          // if zone(s) are selected, do not display countries and zones outside of zones
+                          if (!atLeastOneSelectedZone || this.selectedZones[countryParameters[country].zone]) {
+                              if (resourcesPerCountry[country] == null) {
+                                  resourcesPerCountry[country] = [];
+                              }
+                              resourcesPerCountry[country].push(resource);
+                              const zone = countryParameters[country].zone;
+                              if (zone) {
+                                  if (resourcesPerZone[zone] == null) {
+                                      resourcesPerZone[zone] = [];
+                                  }
+                                  if (!addedResourcePerZone[zone][resource.id]) {
+                                      addedResourcePerZone[zone][resource.id] = true;
+                                      resourcesPerZone[zone].push(resource);
+                                  }
+                              }
+                          }
+                      }
+                  }
+
+                  let resourceBase = resourcesPerZone;
+                  let parametersBase = zoneParameters;
+                  if (isShowingCountries) {
+                      resourceBase = resourcesPerCountry;
+                      parametersBase = countryParameters;
+                  }
+
+                  // adding resources per country to the map
+                  for (const params of Object.entries(resourceBase)) {
+                      const localityKey = params[0];
+                      const resources = params[1];
+
+                      // building marker for country
+                      const marker = document.createElement('div');
+                      marker.className = "country-marker";
+                      const markerChild = document.createElement('div');
+                      markerChild.innerText = resources.length;
+                      marker.appendChild(markerChild);
+                      const localityParams = parametersBase[localityKey];
+
+                      // building popup for marker
+                      const popupHtml = document.createElement("div");
+                      const popupHolder = document.createElement("div");
+                      popupHolder.className = "country-popup";
+                      const title = document.createElement("h2");
+                      title.className = "mb-4";
+                      title.innerHTML = (
+                          "<span class='has-text-weight-bold'>" + resources.length + " ressources </span>"
+                          + "disponibles " + (isShowingCountries ? 'au' : 'en')
+                          + " <span class='has-text-weight-bold'>" + localityParams.name + "</span> :"
+                      );
+                      popupHolder.appendChild(title);
+                      const resourcesHolder = document.createElement("ul");
+                      resourcesHolder.className = "resources-holder";
+                      for (const resource of resources) {
+                          const element = document.createElement("div");
+                          if (resource.thematic) {
+                              element.className = "card has-background-" + resource.thematic + "-light";
+                          } else {
+                              element.className = "card has-background-info-light";
+                          }
+
+                          var elementContent = document.createElement("div");
+                          elementContent.className = "card-content";
+                          var elementTop = document.createElement("div");
+                          elementTop.className = "resource-top-line";
+                          elementTop.style.display = "flex";
+                          elementTop.style.justifyContent = "space-between";
+                          var topLeft = document.createElement("div");
+                          topLeft.innerText = resource.thematics
+                              .map(thematic => this.thematicBySlug[thematic].name)
+                              .join(", ");
+                          var topRight = document.createElement("div");
+                          topRight.innerText = resource.types.map(type_ => resourceTypeBySlug[type_].name).join(", ");
+                          elementTop.appendChild(topLeft);
+                          elementTop.appendChild(topRight);
+                          elementContent.appendChild(elementTop);
+                          var titleLink = document.createElement("a");
+                          titleLink.href = resource.link;
+                          var elementTitle = document.createElement("h3");
+                          elementTitle.innerText = resource.name;
+                          elementTitle.className = "title is-5 has-text-weight-bold mb-4";
+                          titleLink.appendChild(elementTitle);
+                          elementContent.appendChild(titleLink);
+                          var elementIntro = document.createElement("p");
+                          elementIntro.innerHTML = resource.short_description_max_250;
+                          elementContent.appendChild(elementIntro);
+                          var elementButton = document.createElement("a");
+                          elementButton.href = resource.link;
+                          elementButton.target = "_blank"
+                          elementButton.className = "button is-secondary";
+                          elementButton.innerText = "Accéder à la ressource";
+                          elementContent.appendChild(elementButton);
+
+                          element.appendChild(elementContent);
+                          resourcesHolder.appendChild(element);
+                      }
+                      popupHolder.appendChild(resourcesHolder);
+                      popupHtml.appendChild(popupHolder);
+
+                      const popup = new mapboxgl.Popup({offset: 25}).setHTML(
+                          popupHtml.innerHTML
+                      );
+
+                      // add the marker with popup to the map
+                      markers.push(
+                          new mapboxgl.Marker(marker)
+                              .setLngLat([localityParams.longitude, localityParams.latitude])
+                              .setPopup(popup)
+                              .addTo(this.map)
+                      );
+                  }
+              }
+          },
+          mounted() {
+              if ('{{ selected_profile }}') {
+                  this.toggleProfile('{{ selected_profile }}');
+              }
+              this.updateFilters();
+          },
+          computed: {
+              isResourceTypeActive() {
+                  return (name) => {
+                      var profiles = Object.entries(this.selectedProfiles).filter(entry => entry[1])
+                      if (profiles.length !== 1) {
+                          return true
+                      }
+                      var profile = profiles[0][0]
+                      return this.resourceTypesPerProfile[profile].indexOf(name) !== -1
+                  }
+              }
+          },
+      }).mount('#app')
+  </script>
+{% endblock extra_js %}
+
+{% block extra_css %}
+  {% include "elements/resources_page/styles.html" %}
+{% endblock %}

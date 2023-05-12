@@ -1,0 +1,101 @@
+{% load static %}
+
+<div v-if="!isMapView" class="card-holder">
+  <template v-for="resource in filteredResources"
+            :key="resource.slug">
+    <div class="card resource-card footer-at-bottom"
+         :class="(resource.thematic && resource.thematic != 'multiple') ? 'has-background-' + resource.thematic + '-light' : 'has-background-std'">
+      <div class="card-content">
+        <a :href="[[ resource.link ]]"
+           :download="resource.is_download ? resource.download_name : null"
+           :target="resource.is_download ? '_self' : '_blank'">
+          <div class="is-flex" style="justify-content: space-between; font-size: 11px">
+            <div>
+              <template v-if="resource.thematic && resource.thematic != 'multiple'">
+            <span class="icon">
+              <img :src="thematicBySlug[resource.thematic].icon">
+            </span>
+                [[ thematicBySlug[resource.thematic].name ]]
+              </template>
+              <template v-else>
+            <span>
+              <span class="icon">
+                <img v-if="resource.thematics.length < 2" :src="'{% static 'img/thematics/unspecified.svg' %}'">
+              </span>
+              <template v-if="resource.thematics.length">Plusieurs thématiques</template>
+              <template v-else>Sans thématique</template>
+            </span>
+              </template>
+            </div>
+            <div v-if="resource.zone">
+              <span class="icon">
+                <img :src="resource.zone.icon">
+              </span>
+              [[ zoneBySlug[resource.zone].name ]]
+            </div>
+          </div>
+        </a>
+
+        <a :href="[[ resource.link ]]"
+           :download="resource.is_download ? resource.download_name : null"
+           :target="resource.is_download ? '_self' : '_blank'">
+          <div class="my-5 has-text-centered">
+            <img v-if="resource.thematic && resource.thematic != 'multiple'"
+                 :src="thematicBySlug[resource.thematic].icon"
+                 style="width: 107px ; height: 107px; opacity: 0.5">
+            <template v-else>
+              <img v-if="resource.thematics.length >= 2" :src="'{% static 'img/thematics/multiple.svg' %}'"
+                   style="width: 107px ; height: 107px; opacity: 0.5">
+              <img v-else :src="'{% static 'img/thematics/unspecified_color.svg' %}'"
+                   style="width: 107px ; height: 107px; opacity: 0.5">
+            </template>
+          </div>
+          <div>
+            <span class="has-text-weight-bold">[[ resource.resource_type ]]</span>
+          </div>
+          <h3 class="title is-5">[[ resource.name ]]</h3>
+        </a>
+        <p v-if="resource.showFullDescription"
+           style="word-break: break-word"
+           v-html="resource.short_description"></p>
+        <p v-if="!resource.showFullDescription"
+           style="word-break: break-word"
+           v-html="resource.short_description_max_250"></p>
+        <span v-if="resource.is_description_long"
+              class="button is-info is-small is-outlined"
+              @click="resource.showFullDescription = !resource.showFullDescription">
+          afficher [[ resource.showFullDescription ? 'moins' : 'plus']]
+        </span>
+      </div>
+
+      <div class="card-footer" style="flex-direction: column; padding: 24px; border: none;">
+        <div>
+          <span v-if="resource.source_name">
+            <span class="icon"><img src="{% static 'img/source.svg' %}"
+                                    style="width: 12px; height: 12px;"></span>
+            Source : [[ resource.source_name ]]
+          </span>
+        </div>
+        <div v-if="resource.geo_dev_creation">
+          <span>
+            <span class="icon"><img src="{% static 'img/resource_is_progysat.svg' %}"
+                                    style="width: 12px; height: 12px;"></span>
+              Ressource Progysat
+            </span>
+        </div>
+        <a :href="[[ resource.link ]]"
+           :download="resource.is_download ? resource.download_name : null"
+           :target="resource.is_download ? '_self' : '_blank'">
+          <div class="mt-2">
+            <button class="button is-secondary is-medium">
+            <span class="icon">
+              {% include "components/icon.html" with size="16" name="share-box" %}
+            </span>
+              <span>Accéder à la ressource</span>
+            </button>
+          </div>
+        </a>
+      </div>
+    </div>
+  </template>
+</div>

@@ -1,0 +1,134 @@
+// fonts
+$family-sans-serif: Inter, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !default
+$family-primary: $family-sans-serif
+$family-secondary: $family-primary
+@font-face
+  font-family: 'Inter'
+  font-style: normal
+  font-weight: 400
+  src: url('/static/fonts/inter/inter-v8-latin-regular.eot') /* IE9 Compat Modes */
+  src: local(''), url('/static/fonts/inter/inter-v8-latin-regular.eot?#iefix') format('embedded-opentype'), url('/static/fonts/inter/inter-v8-latin-regular.woff2') format('woff2'), url('/static/fonts/inter/inter-v8-latin-regular.woff') format('woff'), url('/static/fonts/inter/inter-v8-latin-regular.ttf') format('truetype'), url('/static/fonts/inter/inter-v8-latin-regular.svg#IBMPlexSerif') format('svg')
+
+@font-face
+  font-family: 'Inter'
+  font-style: normal
+  font-weight: 700
+  src: url('/static/fonts/inter/inter-v8-latin-700.eot') /* IE9 Compat Modes */
+  src: local(''), url('/static/fonts/inter/inter-v8-latin-700.eot?#iefix') format('embedded-opentype'), url('/static/fonts/inter/inter-v8-latin-700.woff2') format('woff2'), url('/static/fonts/inter/inter-v8-latin-700.woff') format('woff'), url('/static/fonts/inter/inter-v8-latin-700.ttf') format('truetype'), url('/static/fonts/inter/inter-v8-latin-700.svg#Inter') format('svg')
+
+// bulma colors
+$yellow: #FFE08A
+$purple: #324176
+$orange: #E56934
+$grey: #8698D6
+$blue: #209CEE
+$green: #48C78E
+$red: #FF3860
+
+// derived colors
+$primary: $purple
+$secondary: $orange
+$info: $blue
+$link: $purple
+$warning: $yellow
+$danger: $red
+
+// custom colors
+$agriculture: #9F6B04
+$floors: #7A2906
+$biodiversity: #3C7E07
+$water: #0F7BC2
+$risks: #EA3576
+$health: #3748E1
+$cities: #693BB3
+$forest: #058566
+$littoral: #333399
+$climat: #fe0000
+$mnt: #7a1fa0
+@import "node_modules/bulma/sass/utilities/functions"
+$agriculture-invert: findColorInvert($agriculture)
+$floors-invert: findColorInvert($floors)
+$biodiversity-invert: findColorInvert($biodiversity)
+$water-invert: findColorInvert($water)
+$risks-invert: findColorInvert($risks)
+$health-invert: findColorInvert($health)
+$cities-invert: findColorInvert($cities)
+$forest-invert: findColorInvert($forest)
+$littoral-invert: findColorInvert($littoral)
+$climat-invert: findColorInvert($climat)
+$mnt-invert: findColorInvert($mnt)
+$secondary-invert: findColorInvert($secondary)
+$custom-colors: ("agriculture": ($agriculture, $agriculture-invert), "floors": ($floors, $floors-invert), "biodiversity": ($biodiversity, $biodiversity-invert), "water": ($water, $water-invert), "risks": ($risks, $risks-invert), "health": ($health, $health-invert), "cities": ($cities, $cities-invert), "forest": ($forest, $forest-invert), "littoral": ($littoral, $littoral-invert), "climat": ($climat, $climat-invert), "mnt": ($mnt, $mnt-invert), "secondary": ($secondary, $secondary-invert))
+
+
+@each $name, $components in $custom-colors
+  .button.is-#{$name}.is-outlined:focus
+    background: transparent !important
+    color: nth($components, 1) !important
+
+.button.is-primary.is-outlined:focus
+    background: transparent !important
+    color: $primary !important
+
+// Text colors
+$text: $purple
+$title-color: $text
+$content-heading-color: $text
+$label-color: $text
+
+// other custom
+$gap: 24px
+$desktop: 1024px
+$widescreen: 1216px
+$fullhd: 1408px
+$navbar-height: 10.6rem
+$navbar-item-img-max-height: 47px
+.content h3
+  margin-bottom: 1em !important
+// we use svg icons and have to adjust the height inside buttons
+.button
+  .icon
+    &,
+    &.is-small,
+    &.is-medium,
+    &.is-large
+      height: 1.2em !important
+
+.breadcrumb
+  a
+    text-decoration: underline
+
+  li
+    &.is-active
+      a
+        text-decoration: none
+
+// Import only what you need from Bulma
+@import "node_modules/bulma/sass/utilities/_all"
+@import "node_modules/bulma/sass/base/_all"
+@import "node_modules/bulma/sass/helpers/color"
+@import "node_modules/bulma/sass/helpers/typography"
+@import "node_modules/bulma/sass/helpers/spacing"
+@import "node_modules/bulma/sass/helpers/flexbox"
+@import "node_modules/bulma/sass/elements/button"
+@import "node_modules/bulma/sass/elements/container"
+@import "node_modules/bulma/sass/elements/title"
+@import "node_modules/bulma/sass/elements/image"
+@import "node_modules/bulma/sass/elements/content"
+@import "node_modules/bulma/sass/form/_all"
+@import "node_modules/bulma/sass/components/navbar"
+@import "node_modules/bulma/sass/components/modal"
+@import "node_modules/bulma/sass/components/card"
+@import "node_modules/bulma/sass/components/breadcrumb"
+@import "node_modules/bulma/sass/components/tabs"
+@import "node_modules/bulma/sass/layout/section"
+@import "node_modules/bulma/sass/layout/footer"
+@import "node_modules/bulma/sass/grid/columns"
+
++until-widescreen
+  .is-flex-direction-column-until-widescreen
+    flex-direction: column
+
++widescreen
+  .columns-widescreen
+    display: flex

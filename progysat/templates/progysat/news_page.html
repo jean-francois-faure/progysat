@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load main_tags %}
+
+{% block content %}
+  <div class="has-background-info-light">
+    <div class="container py-6">
+      {% include "components/breadcrumbs.html" %}
+
+      <div class="card" style="padding: 80px 8vw">
+        <div class="card-content">
+          {{ news.publication_date | date }}
+          <h1 class="title is-1">{{ news.name }}</h1>
+
+          {% include "components/free_body.html" with body=news.body %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if news.news.count %}
+    <div class="container section">
+      <h2 class="title is-2 has-text-centered">Actualités recommandées</h2>
+      <div class="card-holder">
+        {% for news_ in news.news.all %}
+          {% include "components/news_card.html" with news=news_ width=321 %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if news.resources.count %}
+    <div class="container section">
+      <h2 class="title is-2 has-text-centered">Ressources recommandées</h2>
+      <div class="card-holder">
+        {% for resource in news.resources.all %}
+          {% include "components/resource_card.html" with resource=resource %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+{% endblock %}

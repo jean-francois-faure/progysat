@@ -1,0 +1,55 @@
+{% load static i18n wagtailcore_tags wagtailuserbar %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+
+  <title>
+    {% block title %}
+      {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+    {% endblock %}
+    {% block title_suffix %}
+      {% wagtail_site as current_site %}
+      {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+    {% endblock %}
+  </title>
+  <meta name="description" content="{{ search_description }}"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="{% static 'css/bulma.progysat.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/progysat.css' %}">
+
+  <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" type="image/png">
+
+  {% if settings.progysat.AnalyticsScriptSetting.script %}
+    {{ settings.progysat.AnalyticsScriptSetting.script|safe }}
+  {% endif %}
+
+  {% block extra_css %}
+    {# Override this in templates to add extra stylesheets #}
+  {% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+{% wagtailuserbar %}
+{% include "components/navbar.html" %}
+
+{# TODO image should be displayed only on widescreen #}
+<img src="{% static 'img/top-background.svg' %}" class="top-left-image" style="pointer-events: none">
+
+<h1>FLJKDKSJ</h1>
+{{ profiles }}
+{% if has_vue %}
+  <script src="{% static 'js/vue.3.2.31.min.js' %}"></script>
+{% endif %}
+
+<div class="body-content" id="body-content">
+  {% block content %}{% endblock %}
+</div>
+{% include "components/modal_images.html" %}
+{% include "components/footer.html" %}
+{% block extra_js %}{% endblock %}
+<script src="{% static 'js/progysat.js' %}"></script>
+</body>
+</html>
