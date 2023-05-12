@@ -25,7 +25,6 @@ class HomePage(Page, models.Model):
         else:
             news_list = News.objects.all()[:3]
         context["news_list"] = news_list
-        context["newsletter_link"] = "newsletter-link"
         return context
 
     # HomePage can be created only on the root

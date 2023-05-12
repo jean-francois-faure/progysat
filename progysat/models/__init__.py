@@ -6,7 +6,6 @@ from .models import (  # noqa: F401
     Thematic,
     ActualityType,
     StructureSettings,
-    NewsLetterSettings,
     AnalyticsScriptSetting,
 )
 from .news import News  # noqa: F401

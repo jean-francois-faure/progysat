@@ -39,7 +39,7 @@ class NewsListPage(RoutablePageMixin, Page):
                 "news_page": NewsListPage.objects.first(),
                 "modal_images": modal_images,
             },
-            template="main/news_page.html",
+            template="progysat/news_page.html",
         )
 
     def get_context(self, request, *args, **kwargs):

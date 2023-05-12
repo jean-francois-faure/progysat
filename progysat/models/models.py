@@ -123,19 +123,6 @@ class StructureSettings(BaseSetting):
 
 
 @register_setting
-class NewsLetterSettings(BaseSetting):
-    newsLetter = models.URLField(
-        help_text="Lien d'inscription à la lettre d'information",
-        max_length=300,
-        blank=True,
-        null=True,
-    )
-
-    class Meta:
-        verbose_name = "Inscription à la lettre d'information"
-
-
-@register_setting
 class AnalyticsScriptSetting(BaseSetting):
     script = models.TextField(
         help_text="Script d'analytics",
