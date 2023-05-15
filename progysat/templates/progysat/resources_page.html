@@ -94,11 +94,6 @@
       zones.forEach(zone => {
           zoneParameters[zone.code] = zone;
       });
-      var profiles = JSON.parse('{{ profiles | escapejs }}');
-      var selectedProfiles = {};
-      Object.keys(profiles).forEach(profileSlug => {
-          selectedProfiles[profileSlug] = false;
-      });
       var markers = [];
 
       function normalize(str) {
@@ -118,13 +113,10 @@
                   isMapView: false,
                   isOnlyProgysat: false,
                   map: null,
-                  profiles: profiles,
                   resources: JSON.parse('{{ resources | escapejs }}'),
                   countryParameters: countryParameters,
                   searchInput: '',
                   resourceTypes: resourceTypes,
-                  resourceTypesPerProfile: JSON.parse('{{ resource_types_per_profile | escapejs }}'),
-                  selectedProfiles: selectedProfiles,
                   selectedResourceTypes: selectedResourceTypes,
                   selectedThematics: selectedThematics,
                   selectedZones: selectedZones,
@@ -181,19 +173,6 @@
                   Object.keys(this.selectedZones).forEach(key => this.selectedZones[key] = false);
                   this.updateFilters();
               },
-              toggleProfile(profile) {
-                  this.selectedProfiles[profile] = !this.selectedProfiles[profile];
-                  if (!profile || Object.values(this.selectedProfiles).filter(value => value).length !== 1) {
-                      // unselecting a profile or if multiple profiles are selected,
-                      // select all resource types
-                      Object.keys(this.selectedResourceTypes).map(key => this.selectedResourceTypes[key] = false);
-                  } else {
-                      var selectedProfile = Object.entries(this.selectedProfiles).filter(value => value[1])[0][0];
-                      // select all resource types for that profile, unselect the rest
-                      Object.keys(this.selectedResourceTypes).map(key => this.selectedResourceTypes[key] = this.resourceTypesPerProfile[selectedProfile].indexOf(key) !== -1);
-                  }
-                  this.updateFilters();
-              },
               toggleThematic(thematic) {
                   this.selectedThematics[thematic] = !this.selectedThematics[thematic];
                   this.updateFilters();
@@ -209,24 +188,6 @@
               updateFilters() {
                   var filtered = [];
                   this.resources.forEach((resource) => {
-                      // PROFILES
-                      var atLeastOneSelectedProfile = Object.values(this.selectedProfiles).some(function (e) {
-                          return e
-                      });
-                      var atLeastOneCorresponding = false;
-                      if (atLeastOneSelectedProfile) {
-                          resource.profiles.forEach((profile) => {
-                              if (this.selectedProfiles[profile]) {
-                                  atLeastOneCorresponding = true;
-                              }
-                          })
-
-                          if (!atLeastOneCorresponding) {
-                              return;
-                          }
-
-                      }
-
                       // RESOURCE TYPES
                       var atLeastOneSelectedType = Object.values(this.selectedResourceTypes).some(function (e) {
                           return e
@@ -455,22 +416,7 @@
               }
           },
           mounted() {
-              if ('{{ selected_profile }}') {
-                  this.toggleProfile('{{ selected_profile }}');
-              }
               this.updateFilters();
-          },
-          computed: {
-              isResourceTypeActive() {
-                  return (name) => {
-                      var profiles = Object.entries(this.selectedProfiles).filter(entry => entry[1])
-                      if (profiles.length !== 1) {
-                          return true
-                      }
-                      var profile = profiles[0][0]
-                      return this.resourceTypesPerProfile[profile].indexOf(name) !== -1
-                  }
-              }
           },
       }).mount('#app')
   </script>

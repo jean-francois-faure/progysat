@@ -51,31 +51,6 @@
         {{ page.specific.resources_block_title|richtext }}
       </h2>
     </div>
-    <div class="columns mt-5">
-      {% for profile in profiles %}
-        <div class="column is-4">
-          <div class="card" style="height: 100%">
-            <div class="card-content columns" style="height: 100%">
-              <div class="column is-3 p-1">
-                <img src="{{ profile.icon_url }}">
-              </div>
-              <div class="column is-9" style="display: flex; flex-direction: column; justify-content: space-between;">
-                <div>
-                  <h3 class="title" style="text-transform: capitalize">{{ profile.name }}s</h3>
-                  <p>
-                    {{ profile.description | safe }}
-                  </p>
-                </div>
-
-                <div class="mt-3">
-                  <a href="{{ profile.resources_link }}" class="button is-secondary">Voir les ressources</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
     <div style="max-width: 500px; margin: auto">
       <p class="has-text-centered mt-5">
         {{ page.specific.resources_block_explication|richtext }}

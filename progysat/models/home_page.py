@@ -10,13 +10,11 @@ class HomePage(Page, models.Model):
 
     def get_context(self, request, *args, **kwargs):
         from progysat.models.resource import Resource
-        from progysat.models.models import Profile
         from progysat.models.news import News
 
         context = super().get_context(request, *args, **kwargs)
         context["n_resources"] = Resource.objects.count()
         context["n_members"] = User.objects.count()
-        context["profiles"] = Profile.objects.all()
         first_news = News.objects.filter(is_progysat=True).first()
         if not first_news:
             first_news = News.objects.filter().first()
@@ -40,14 +38,13 @@ class HomePage(Page, models.Model):
         blank=True,
         verbose_name="Titre du bloc des ressources",
         max_length=64,
-        default="Des ressources adaptées à votre profil",
+        default="Liste des ressources",
     )
     resources_block_explication = RichTextField(
         null=True,
         blank=True,
         features=SIMPLE_RICH_TEXT_FIELD_FEATURE,
         verbose_name="Explication du bloc des ressources",
-        help_text="Explication présente sous les listes des différents profils",
     )
     news_block_title = models.CharField(
         blank=True,

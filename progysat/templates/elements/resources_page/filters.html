@@ -2,25 +2,12 @@
 
 <div class="section has-background-secondary-light py-4">
   <div class="container">
-    <div class="mb-4">
-      <h3 class="title is-3 mb-1 has-text-centered">Je suis</h3>
-      <div style="display: flex; justify-content: space-between; max-width: 620px; margin: auto">
-        <button v-for="profile in profiles"
-                :class="selectedProfiles[profile.slug] ? '' : 'is-outlined'"
-                @click="toggleProfile(profile.slug)"
-                class="button is-large is-rounded is-secondary"
-                style="width: 190px">
-          [[ profile.name ]]
-        </button>
-      </div>
-
-    </div>
     <div class="columns mt-1">
       <div class="column is-4 i-am-profiles">
         <h3 class="title is-4">Les ressources qui m'intéressent</h3>
         <div class="tag-holder">
           <button v-for="type in resourceTypes"
-                  :class="{'is-outlined': !selectedResourceTypes[type.slug], 'is-disabled': !isResourceTypeActive(type.slug)}"
+                  :class="{'is-outlined': !selectedResourceTypes[type.slug]}"
                   @click="toggleType(type.slug)"
                   class="button is-rounded is-primary">
             [[ type.name ]]

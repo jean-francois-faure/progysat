@@ -8,7 +8,7 @@ from wagtail.fields import RichTextField
 from wagtail.search import index
 
 from progysat.models.country import Country, WorldZone
-from progysat.models.models import Thematic, Profile, ResourceType
+from progysat.models.models import Thematic, ResourceType
 from progysat.models.utils import (
     TimeStampedModel,
     SIMPLE_RICH_TEXT_FIELD_FEATURE,
@@ -41,9 +41,6 @@ class Resource(index.Indexed, TimeStampedModel, FreeBodyField):
         null=True,
         verbose_name="Thématique principale",
         help_text="ce champ n'est utilisé que lorsque plusieurs thématiques sont sélectionnées",
-    )
-    profiles = models.ManyToManyField(
-        Profile, blank=True, verbose_name="Profils", related_name="ressources"
     )
     geo_dev_creation = models.BooleanField(
         default=False, verbose_name="Créé par Progysat ?"
@@ -79,7 +76,6 @@ class Resource(index.Indexed, TimeStampedModel, FreeBodyField):
         FieldPanel("body"),
         FieldPanel("types", widget=forms.CheckboxSelectMultiple),
         FieldPanel("thematics", widget=forms.CheckboxSelectMultiple),
-        FieldPanel("profiles", widget=forms.CheckboxSelectMultiple),
         FieldPanel("geo_dev_creation"),
         FieldPanel("is_global"),
         FieldPanel("zones", widget=forms.CheckboxSelectMultiple),
@@ -95,13 +91,11 @@ class Resource(index.Indexed, TimeStampedModel, FreeBodyField):
                 "name",
                 "slug",
                 "thematics",
-                "profiles__name",
                 "geo_dev_creation",
                 "source_name",
                 "short_description",
             ],
         )
-        to_return["profiles"] = [profile.slug for profile in self.profiles.all()]
         to_return["thematics"] = [thematic.slug for thematic in self.thematics.all()]
         to_return["is_description_long"] = (
             is_description_long := len(self.short_description) >= 250

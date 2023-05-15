@@ -8,7 +8,7 @@ from wagtail.models import Page
 from progysat.models import Thematic
 from progysat.models.country import Country
 from progysat.models.country import WorldZone
-from progysat.models.models import Profile, ResourceType
+from progysat.models.models import ResourceType
 from progysat.models.resource import Resource
 
 
@@ -24,12 +24,6 @@ class ResourcesPage(RoutablePageMixin, Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context["has_vue"] = True
-        context["profiles"] = json.dumps(
-            {
-                profile.slug: {"name": profile.name, "slug": profile.slug}
-                for profile in Profile.objects.all()
-            }
-        )
         context["thematics"] = json.dumps(
             [thematic.to_dict() for thematic in Thematic.objects.all()]
         )
@@ -39,17 +33,10 @@ class ResourcesPage(RoutablePageMixin, Page):
         context["zones"] = json.dumps(
             [zone.to_dict() for zone in WorldZone.objects.all()]
         )
-        context["selected_profile"] = request.GET.get("profile", "")
         context["resources"] = json.dumps(
             [ressource.to_dict() for ressource in Resource.objects.all()]
         )
         context["countries"] = json.dumps(
             [country.to_dict() for country in Country.objects.all()]
-        )
-        context["resource_types_per_profile"] = json.dumps(
-            {
-                profile.slug: [type_.slug for type_ in profile.types.all()]
-                for profile in Profile.objects.all()
-            }
         )
         return context

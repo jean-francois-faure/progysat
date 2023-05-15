@@ -21,9 +21,9 @@ Une ressource doit avoir un fichier lié ou un lien.
 
 De la même manière, les actualités sont configurés dans le sous-menu Actualités.
 
-### Pays, profils et zones du monde
+### Pays et zones du monde
 
-Les pays, profils et zones du monde sont configurables dans le sous-menu "Général".
+Les pays et zones du monde sont configurables dans le sous-menu "Général".
 
 De la même manière que les thématiques de ressources, les zones du monde ne sont pas prévues pour être changées, hormis
 leur nom.

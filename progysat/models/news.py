@@ -89,7 +89,7 @@ class News(index.Indexed, TimeStampedModel, FreeBodyField):
         FieldPanel("publication_date"),
         FieldPanel("image"),
         FieldPanel("introduction"),
-        FieldPanel("is_Progysat"),
+        FieldPanel("is_progysat"),
         FieldPanel("body"),
         FieldPanel("types", widget=forms.CheckboxSelectMultiple),
         FieldPanel("is_global"),

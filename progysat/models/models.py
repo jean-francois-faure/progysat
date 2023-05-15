@@ -54,44 +54,6 @@ class ActualityType(TagBase):
         verbose_name_plural = "Types d'actualité"
 
 
-class Profile(models.Model):
-    name = models.CharField(max_length=100)
-    description = RichTextField(
-        null=True,
-        blank=True,
-        features=SIMPLE_RICH_TEXT_FIELD_FEATURE,
-        verbose_name="Description",
-    )
-    types = models.ManyToManyField(ResourceType, verbose_name="types de ressource")
-
-    panels = [
-        FieldPanel("name"),
-        FieldPanel("description"),
-        FieldPanel("types"),
-    ]
-
-    def __str__(self):
-        return self.name
-
-    @property
-    def icon_url(self):
-        return static(f"img/{self.slug}.svg")
-
-    @property
-    def slug(self):
-        return unidecode(self.name.lower())
-
-    @property
-    def resources_link(self):
-        from progysat.models.resources_page import ResourcesPage
-
-        return f"{pageurl({}, ResourcesPage.objects.get())}?profile={self.slug}"
-
-    class Meta:
-        verbose_name = "Profil"
-        verbose_name_plural = "Profils"
-
-
 class Thematic(TagBase):
     class Meta:
         verbose_name = "Thématique"

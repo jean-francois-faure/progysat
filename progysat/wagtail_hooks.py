@@ -10,7 +10,7 @@ from wagtail import hooks
 from wagtail.contrib.modeladmin.views import EditView, CreateView
 
 from progysat.models.country import WorldZone, Country
-from progysat.models.models import Profile, Thematic, ActualityType, ResourceType
+from progysat.models.models import Thematic, ActualityType, ResourceType
 from progysat.models.news import News
 from progysat.models.resource import Resource
 
@@ -21,15 +21,6 @@ def global_admin_css():
     return format_html(
         '<link rel="stylesheet" href="{}">', static("css/progysat-admin.css")
     )
-
-
-class ProfileModelAdmin(ModelAdmin):
-    model = Profile
-    menu_label = "Profils"
-    menu_order = 200
-    menu_icon = "group"
-    add_to_settings_menu = False
-    search_fields = ("name",)
 
 
 class RelatedCountriesEditView(EditView):
@@ -136,7 +127,7 @@ class GeneralAdminGroup(ModelAdminGroup):
     menu_label = "Général"
     menu_order = 203
     menu_icon = "cogs"
-    items = (ProfileModelAdmin, CountryModelAdmin, WorldZoneModelAdmin)
+    items = (CountryModelAdmin, WorldZoneModelAdmin)
 
 
 modeladmin_register(RessourcesAdminGroup)
