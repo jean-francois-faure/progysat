@@ -9,9 +9,7 @@ from wagtail.fields import RichTextField
 from wagtail.images.views.serve import generate_image_url
 from wagtail.search import index
 
-from progysat.models.country import Country, WorldZone
-from progysat.models.models import ActualityType
-from progysat.models.models import Thematic
+from progysat.models.models import ActualityType, Thematic, GeoZone
 from progysat.models.resource import Resource
 from progysat.models.utils import TimeStampedModel, FreeBodyField
 from progysat.templatetags.main_tags import news_page_url
@@ -56,16 +54,10 @@ class News(index.Indexed, TimeStampedModel, FreeBodyField):
     is_global = models.BooleanField(
         verbose_name="Concerne tous les pays", default=False
     )
-    countries = models.ManyToManyField(
-        Country,
-        verbose_name="Pays liés",
-        blank=True,
-        help_text="Ce champ n'est pas encore utilisé",
-    )
     zones = models.ManyToManyField(
-        WorldZone,
+        GeoZone,
         blank=True,
-        verbose_name="Zones du monde liées",
+        verbose_name="Zones géographique liées",
         help_text="Ce champ n'est pas encore utilisé",
     )
     thematics = models.ManyToManyField(
@@ -94,7 +86,6 @@ class News(index.Indexed, TimeStampedModel, FreeBodyField):
         FieldPanel("types", widget=forms.CheckboxSelectMultiple),
         FieldPanel("is_global"),
         FieldPanel("zones", widget=forms.CheckboxSelectMultiple),
-        FieldPanel("countries", widget=forms.SelectMultiple),
         FieldPanel("thematics", widget=forms.CheckboxSelectMultiple),
         FieldPanel("resources", widget=forms.SelectMultiple),
     ]
@@ -132,13 +123,6 @@ class News(index.Indexed, TimeStampedModel, FreeBodyField):
             ]
 
         return to_return
-
-    def add_countries_from_zone(self):
-        # add all countries of all selected zones
-        for zone in self.zones.all():
-            for country in zone.country_set.all():
-                self.countries.add(country)
-        super().save()
 
     def save(self, *args, **kwargs):
         if not self.slug:

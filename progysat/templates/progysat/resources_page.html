@@ -83,13 +83,6 @@
       zones.forEach(function (zone) {
           selectedZones[zone.code] = false;
       });
-      var countries = JSON.parse('{{ countries | escapejs }}');
-      var countryParameters = {};
-      var zoneByCountry = {};
-      countries.forEach(country => {
-          countryParameters[country.code] = country;
-          zoneByCountry[country.code] = country.zone;
-      });
       var zoneParameters = {};
       zones.forEach(zone => {
           zoneParameters[zone.code] = zone;
@@ -114,7 +107,6 @@
                   isOnlyProgysat: false,
                   map: null,
                   resources: JSON.parse('{{ resources | escapejs }}'),
-                  countryParameters: countryParameters,
                   searchInput: '',
                   resourceTypes: resourceTypes,
                   selectedResourceTypes: selectedResourceTypes,
@@ -232,20 +224,6 @@
                           if (atLeastOneSelectedZone && resource.zone && !this.selectedZones[resource.zone]) {
                               return;
                           }
-                          // check at least one country is in a selected zone
-                          if (atLeastOneSelectedZone && !resource.global && !resource.zone) {
-                              atLeastOneCorresponding = false;
-
-                              resource.countries.forEach(country => {
-                                  var zone = countryParameters[country].zone;
-                                  if (zone && this.selectedZones[zone]) {
-                                      atLeastOneCorresponding = true;
-                                  }
-                              });
-                              if (!atLeastOneCorresponding) {
-                                  return;
-                              }
-                          }
                       }
 
 
@@ -277,15 +255,12 @@
                   }
               },
               updateMap() {
-                  const isShowingCountries = this.map.getZoom() > 2.9;
                   // reset markers
                   for (var marker of markers) {
                       marker.remove();
                   }
                   markers = [];
-                  console.log("### updateMap", isShowingCountries, this.filteredResources, markers);
-                  // building a resourcePerCountry dict
-                  var resourcesPerCountry = {};
+                  console.log("### updateMap", this.filteredResources, markers);
                   var resourcesPerZone = {};
                   var addedResourcePerZone = {};
                   zones.forEach(zone => {
@@ -296,37 +271,17 @@
                   });
 
                   for (const resource of this.filteredResources) {
-                      var resourceCountries = resource.countries;
-                      if (resource.is_global) {
-                          resourceCountries = countries.map(country => country.code);
-                      }
-                      for (const country of resourceCountries) {
-                          // if zone(s) are selected, do not display countries and zones outside of zones
-                          if (!atLeastOneSelectedZone || this.selectedZones[countryParameters[country].zone]) {
-                              if (resourcesPerCountry[country] == null) {
-                                  resourcesPerCountry[country] = [];
-                              }
-                              resourcesPerCountry[country].push(resource);
-                              const zone = countryParameters[country].zone;
-                              if (zone) {
-                                  if (resourcesPerZone[zone] == null) {
-                                      resourcesPerZone[zone] = [];
-                                  }
-                                  if (!addedResourcePerZone[zone][resource.id]) {
-                                      addedResourcePerZone[zone][resource.id] = true;
-                                      resourcesPerZone[zone].push(resource);
-                                  }
-                              }
-                          }
-                      }
+                    for (const zone of resource.zones) {
+                        if (resourcesPerZone[zone] == null) {
+                            resourcesPerZone[zone] = [];
+                        }
+                        addedResourcePerZone[zone][resource.id] = true;
+                        resourcesPerZone[zone].push(resource);
+                    }
                   }
 
                   let resourceBase = resourcesPerZone;
                   let parametersBase = zoneParameters;
-                  if (isShowingCountries) {
-                      resourceBase = resourcesPerCountry;
-                      parametersBase = countryParameters;
-                  }
 
                   // adding resources per country to the map
                   for (const params of Object.entries(resourceBase)) {
@@ -349,7 +304,7 @@
                       title.className = "mb-4";
                       title.innerHTML = (
                           "<span class='has-text-weight-bold'>" + resources.length + " ressources </span>"
-                          + "disponibles " + (isShowingCountries ? 'au' : 'en')
+                          + "disponibles en  <span class='has-text-weight-bold'>" 
                           + " <span class='has-text-weight-bold'>" + localityParams.name + "</span> :"
                       );
                       popupHolder.appendChild(title);

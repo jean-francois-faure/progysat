@@ -74,6 +74,37 @@ class Thematic(TagBase):
         return to_return
 
 
+class GeoZone(models.Model):
+    class Meta:
+        ordering = ("name",)
+        verbose_name = "zone géographique"
+        verbose_name_plural = "zones géographiques"
+
+    name = models.CharField(verbose_name="Nom", max_length=60)
+    code = models.CharField(verbose_name="code (ne pas changer !)", max_length=20)
+    latitude = models.FloatField(verbose_name="latitude du centre")
+    longitude = models.FloatField(verbose_name="longitude du centre")
+
+    icon = models.ForeignKey(Document, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    def to_dict(self):
+        to_return = {
+            "name": self.name,
+            "code": self.code,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+        }
+        if self.icon:
+            to_return["icon"] = self.icon.url
+        else:
+            to_return["icon"] = f"/static/img/zones/{self.code}.svg"
+
+        return to_return
+
+
 @register_setting
 class StructureSettings(BaseSetting):
     linkedin = models.URLField(

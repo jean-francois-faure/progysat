@@ -7,8 +7,7 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.search import index
 
-from progysat.models.country import Country, WorldZone
-from progysat.models.models import Thematic, ResourceType
+from progysat.models.models import Thematic, ResourceType, GeoZone
 from progysat.models.utils import (
     TimeStampedModel,
     SIMPLE_RICH_TEXT_FIELD_FEATURE,
@@ -17,8 +16,7 @@ from progysat.models.utils import (
 
 
 class Resource(index.Indexed, TimeStampedModel, FreeBodyField):
-    countries = models.ManyToManyField(Country, verbose_name="Pays", blank=True)
-    zones = models.ManyToManyField(WorldZone, verbose_name="Zones", blank=True)
+    zones = models.ManyToManyField(GeoZone, verbose_name="Zones", blank=True)
     is_global = models.BooleanField(
         verbose_name="Concerne tous les pays", default=False
     )
@@ -79,7 +77,6 @@ class Resource(index.Indexed, TimeStampedModel, FreeBodyField):
         FieldPanel("geo_dev_creation"),
         FieldPanel("is_global"),
         FieldPanel("zones", widget=forms.CheckboxSelectMultiple),
-        FieldPanel("countries", widget=forms.SelectMultiple),
     ]
 
     def to_dict(self):
@@ -109,18 +106,18 @@ class Resource(index.Indexed, TimeStampedModel, FreeBodyField):
             to_return["thematic"] = self.main_thematic.slug
         else:
             to_return["thematic"] = "multiple"
-        zones = {country.zone.code for country in self.countries.all() if country.zone}
+        zones = {zone.code for zone in self.zones.all()}
         if len(zones) == 1:
             to_return["zone"] = next(iter(zones))
         else:
             to_return["zone"] = None
+        to_return["zones"] = [zone.code for zone in self.zones.all()]
         to_return["link"] = self.link
         if self.file:
             to_return["download_name"] = self.file.name
         else:
             to_return["download_name"] = None
         to_return["is_download"] = self.is_download
-        to_return["countries"] = [country.code for country in self.countries.all()]
         to_return["types"] = [type_.slug for type_ in self.types.all()]
         return to_return
 
@@ -133,13 +130,6 @@ class Resource(index.Indexed, TimeStampedModel, FreeBodyField):
         if self.thematics.count() == 1:
             return self.thematics.first()
         return None
-
-    def add_countries_from_zone(self):
-        # add all countries of all selected zones
-        for zone in self.zones.all():
-            for country in zone.country_set.all():
-                self.countries.add(country)
-        super().save()
 
     def save(self, *args, **kwargs):
         if not self.slug:

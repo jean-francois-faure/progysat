@@ -6,9 +6,7 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin
 from wagtail.models import Page
 
 from progysat.models import Thematic
-from progysat.models.country import Country
-from progysat.models.country import WorldZone
-from progysat.models.models import ResourceType
+from progysat.models.models import ResourceType, GeoZone
 from progysat.models.resource import Resource
 
 
@@ -31,12 +29,9 @@ class ResourcesPage(RoutablePageMixin, Page):
             [model_to_dict(type_) for type_ in ResourceType.objects.all()]
         )
         context["zones"] = json.dumps(
-            [zone.to_dict() for zone in WorldZone.objects.all()]
+            [zone.to_dict() for zone in GeoZone.objects.all()]
         )
         context["resources"] = json.dumps(
             [ressource.to_dict() for ressource in Resource.objects.all()]
-        )
-        context["countries"] = json.dumps(
-            [country.to_dict() for country in Country.objects.all()]
         )
         return context
