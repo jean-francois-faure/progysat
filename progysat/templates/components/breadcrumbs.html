@@ -3,7 +3,7 @@
 
 <nav class="breadcrumb" aria-label="breadcrumbs">
   <ul>
-    <li><a href="/">Accueil</a></li>
+    <li><a href="/{{ language_code }}/">Accueil</a></li>
     {% if news %}
       <li><a href="{% news_page_url %}">Actualités</a></li>
       <li class="is-active"><a href="{% news_page_url news %}">{{ news.name }}</a></li>

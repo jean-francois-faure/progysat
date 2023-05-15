@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "wagtail.contrib.settings",
     "wagtail_localize",
     "wagtail_localize.locales",
+    "wagtail_localize.modeladmin",
     "anymail",
 ]
 
@@ -60,7 +61,9 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
+    "progysat.middlewares.SearchDescriptionAndTranslationMiddleware",
 ]
 
 ROOT_URLCONF = "progysat.urls"
@@ -79,6 +82,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "progysat.context_processors.general_context",
+                "progysat.context_processors.language",
                 "wagtail.contrib.settings.context_processors.settings",
             ],
         },
@@ -126,7 +130,16 @@ USE_I18N = True
 
 USE_L10N = True
 
+WAGTAIL_I18N_ENABLED = True
+
 USE_TZ = True
+
+WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
+    ("fr", "FR 🇫🇷"),
+    ("en", "EN 🇬🇧"),
+    ("pt-br", "PT 🇧🇷"),
+    ("nl", "NL 🇸🇷")
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

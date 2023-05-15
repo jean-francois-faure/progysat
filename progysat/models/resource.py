@@ -5,6 +5,7 @@ from django.forms import model_to_dict
 from django.utils.text import slugify
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
+from wagtail.models import TranslatableMixin
 from wagtail.search import index
 
 from progysat.models.models import Thematic, ResourceType, GeoZone
@@ -15,10 +16,10 @@ from progysat.models.utils import (
 )
 
 
-class Resource(index.Indexed, TimeStampedModel, FreeBodyField):
+class Resource(TranslatableMixin, index.Indexed, TimeStampedModel, FreeBodyField):
     zones = models.ManyToManyField(GeoZone, verbose_name="Zones", blank=True)
     is_global = models.BooleanField(
-        verbose_name="Concerne tous les pays", default=False
+        verbose_name="Concerne toutes les zones", default=False
     )
     name = models.CharField(verbose_name="Nom", max_length=100)
     slug = models.SlugField(
@@ -151,7 +152,7 @@ class Resource(index.Indexed, TimeStampedModel, FreeBodyField):
     def description_text(self):
         return BeautifulSoup(self.short_description, "html.parser").text
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name_plural = "Ressources"
         verbose_name = "Ressource"
         ordering = ("name",)

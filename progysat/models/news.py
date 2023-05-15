@@ -7,6 +7,7 @@ from django.utils.text import slugify
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.images.views.serve import generate_image_url
+from wagtail.models import TranslatableMixin
 from wagtail.search import index
 
 from progysat.models.models import ActualityType, Thematic, GeoZone
@@ -15,7 +16,7 @@ from progysat.models.utils import TimeStampedModel, FreeBodyField
 from progysat.templatetags.main_tags import news_page_url
 
 
-class News(index.Indexed, TimeStampedModel, FreeBodyField):
+class News(TranslatableMixin, index.Indexed, TimeStampedModel, FreeBodyField):
     name = models.CharField(verbose_name="nom", max_length=255)
     publication_date = models.DateTimeField(
         verbose_name="Date de publication",
@@ -52,7 +53,7 @@ class News(index.Indexed, TimeStampedModel, FreeBodyField):
         help_text="Permet le filtrage des actualités",
     )
     is_global = models.BooleanField(
-        verbose_name="Concerne tous les pays", default=False
+        verbose_name="Concerne toutes les zones", default=False
     )
     zones = models.ManyToManyField(
         GeoZone,
@@ -129,7 +130,7 @@ class News(index.Indexed, TimeStampedModel, FreeBodyField):
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = "Actualité"
         verbose_name_plural = "Actualités"
         ordering = ["-publication_date"]

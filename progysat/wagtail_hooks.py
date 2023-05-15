@@ -7,6 +7,7 @@ from wagtail.contrib.modeladmin.options import (
     modeladmin_register,
 )
 from wagtail import hooks
+from wagtail_localize.modeladmin.options import TranslatableModelAdmin
 
 from progysat.models.models import Thematic, ActualityType, ResourceType, GeoZone
 from progysat.models.news import News
@@ -21,7 +22,7 @@ def global_admin_css():
     )
 
 
-class RessourceModelAdmin(ModelAdmin):
+class RessourceModelAdmin(TranslatableModelAdmin):
     model = Resource
     menu_label = "Ressources"
     menu_icon = "folder-inverse"
@@ -29,7 +30,7 @@ class RessourceModelAdmin(ModelAdmin):
     search_fields = ("name",)
 
 
-class ThematicModelAdmin(ModelAdmin):
+class ThematicModelAdmin(TranslatableModelAdmin):
     model = Thematic
     menu_label = "Thématiques"
     menu_icon = "tag"
@@ -42,7 +43,7 @@ class ThematicModelAdmin(ModelAdmin):
     ]
 
 
-class ResourceTypeModelAdmin(ModelAdmin):
+class ResourceTypeModelAdmin(TranslatableModelAdmin):
     model = ResourceType
     menu_label = "Types de ressource"
     menu_icon = "tag"
@@ -57,7 +58,7 @@ class RessourcesAdminGroup(ModelAdminGroup):
     items = (RessourceModelAdmin, ThematicModelAdmin, ResourceTypeModelAdmin)
 
 
-class NewsModelAdmin(ModelAdmin):
+class NewsModelAdmin(TranslatableModelAdmin):
     model = News
     menu_label = "Actualités"
     menu_icon = "folder-inverse"
@@ -65,7 +66,7 @@ class NewsModelAdmin(ModelAdmin):
     search_fields = ("name",)
 
 
-class ActualityTypeModelAdmin(ModelAdmin):
+class ActualityTypeModelAdmin(TranslatableModelAdmin):
     model = ActualityType
     menu_label = "Types d'actualité"
     menu_icon = "tag"
@@ -80,7 +81,7 @@ class ActualityAdminGroup(ModelAdminGroup):
     items = (NewsModelAdmin, ActualityTypeModelAdmin)
 
 
-class GeoZoneModelAdmin(ModelAdmin):
+class GeoZoneModelAdmin(TranslatableModelAdmin):
     model = GeoZone 
     menu_label = "Zones géographique"
     menu_icon = "site"

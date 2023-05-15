@@ -8,7 +8,7 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSetting
 from wagtail.contrib.settings.registry import register_setting
 from wagtail.fields import RichTextField
-from wagtail.models import Page
+from wagtail.models import Page, TranslatableMixin
 from wagtail.templatetags.wagtailcore_tags import pageurl
 from wagtail.documents.models import Document
 
@@ -40,22 +40,22 @@ class ContentPage(Page, FreeBodyField):
     ]
 
 
-class ResourceType(TagBase):
-    class Meta:
+class ResourceType(TranslatableMixin, TagBase):
+    class Meta(TranslatableMixin.Meta):
         ordering = ("name",)
         verbose_name = "Type de ressource"
         verbose_name_plural = "Types de ressource"
 
 
-class ActualityType(TagBase):
-    class Meta:
+class ActualityType(TranslatableMixin, TagBase):
+    class Meta(TranslatableMixin.Meta):
         ordering = ("name",)
         verbose_name = "Type d'actualité"
         verbose_name_plural = "Types d'actualité"
 
 
-class Thematic(TagBase):
-    class Meta:
+class Thematic(TranslatableMixin, TagBase):
+    class Meta(TranslatableMixin.Meta):
         verbose_name = "Thématique"
         verbose_name_plural = "Thématiques"
 
@@ -74,8 +74,8 @@ class Thematic(TagBase):
         return to_return
 
 
-class GeoZone(models.Model):
-    class Meta:
+class GeoZone(TranslatableMixin):
+    class Meta(TranslatableMixin.Meta):
         ordering = ("name",)
         verbose_name = "zone géographique"
         verbose_name_plural = "zones géographiques"

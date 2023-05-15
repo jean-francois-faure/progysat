@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import translation
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page
@@ -12,16 +13,19 @@ class HomePage(Page, models.Model):
         from progysat.models.resource import Resource
         from progysat.models.news import News
 
+        current_language = translation.get_language()
+
         context = super().get_context(request, *args, **kwargs)
-        context["n_resources"] = Resource.objects.count()
-        context["n_members"] = User.objects.count()
-        first_news = News.objects.filter(is_progysat=True).first()
+        context["n_resources"] = Resource.objects.filter(locale__language_code=current_language).count()
+        context["n_members"] = User.objects.all().count()
+        current_language_news = News.objects.filter(locale__language_code=current_language)
+        first_news = current_language_news.filter(is_progysat=True).first()
         if not first_news:
-            first_news = News.objects.filter().first()
+            first_news = current_language_news.first()
         if first_news:
             news_list = [first_news] + list(News.objects.exclude(id=first_news.id)[:2])
         else:
-            news_list = News.objects.all()[:3]
+            news_list = current_language_news[:3]
         context["news_list"] = news_list
         return context
 

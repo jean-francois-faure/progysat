@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from django.contrib.syndication.views import Feed
+from django.utils import translation
 
 from progysat.models.news import News
 from progysat.templatetags.main_tags import news_page_url
@@ -22,7 +23,9 @@ class LatestNewsFeed(Feed):
     def items(self):
         return [
             self.prepare_item(news)
-            for news in News.objects.order_by("-publication_date")[:5]
+            for news in News.objects.filter(
+            locale__language_code=translation.get_language()
+        ).order_by("-publication_date")[:5]
         ]
 
     def item_title(self, item):
