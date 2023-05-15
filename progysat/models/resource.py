@@ -4,7 +4,7 @@ from django.db import models
 from django.forms import model_to_dict
 from django.utils.text import slugify
 from wagtail.admin.panels import FieldPanel
-from wagtail.core.fields import RichTextField
+from wagtail.fields import RichTextField
 from wagtail.search import index
 
 from progysat.models.country import Country, WorldZone

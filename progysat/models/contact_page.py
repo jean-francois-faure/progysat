@@ -3,8 +3,8 @@ from typing import List
 from django.core.exceptions import ValidationError
 from django.shortcuts import render
 from wagtail.admin.panels import FieldPanel
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
+from wagtail.fields import RichTextField
+from wagtail.models import Page
 
 from progysat.forms import ContactForm
 from progysat.models.utils import SIMPLE_RICH_TEXT_FIELD_FEATURE

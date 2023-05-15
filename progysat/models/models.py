@@ -7,9 +7,9 @@ from unidecode import unidecode
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSetting
 from wagtail.contrib.settings.registry import register_setting
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
-from wagtail.core.templatetags.wagtailcore_tags import pageurl
+from wagtail.fields import RichTextField
+from wagtail.models import Page
+from wagtail.templatetags.wagtailcore_tags import pageurl
 from wagtail.documents.models import Document
 
 from progysat.models.utils import FreeBodyField, SIMPLE_RICH_TEXT_FIELD_FEATURE

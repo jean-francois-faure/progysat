@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 from wagtail.admin.panels import FieldPanel
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
+from wagtail.fields import RichTextField
+from wagtail.models import Page
 
 
 class HomePage(Page, models.Model):

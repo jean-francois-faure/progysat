@@ -1,5 +1,5 @@
-from wagtail.core.models import Page
-from wagtail.core.templatetags.wagtailcore_tags import pageurl
+from wagtail.models import Page
+from wagtail.templatetags.wagtailcore_tags import pageurl
 
 from progysat.models import ResourcesPage, NewsListPage
 

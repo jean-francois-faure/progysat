@@ -6,7 +6,7 @@ from wagtail.contrib.modeladmin.options import (
     ModelAdminGroup,
     modeladmin_register,
 )
-from wagtail.core import hooks
+from wagtail import hooks
 from wagtail.contrib.modeladmin.views import EditView, CreateView
 
 from progysat.models.country import WorldZone, Country
