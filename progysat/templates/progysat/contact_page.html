@@ -3,6 +3,7 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load main_tags %}
+{% load i18n %}
 
 {% block content %}
   <div class="section container pt-6">
@@ -23,8 +24,8 @@
         <div class="column is-6">
           <div class="card">
             <div class="card-content">
-              <h2 class="title is-2">Formulaire de contact</h2>
-              <p>Les champs comprenant une astérisque (*) sont obligatoires.</p>
+              <h2 class="title is-2">{% trans "Formulaire de contact" %}</h2>
+              <p>{% trans "Les champs comprenant une astérisque (*) sont obligatoires." %}</p>
 
               <form action="" method="post">
                 {% csrf_token %}
@@ -32,13 +33,13 @@
                 <div class="columns mt-5">
                   <div class="column is-6">
                     <div class="field">
-                      <label for="firstname" class="label">Prénom *</label>
+                      <label for="firstname" class="label">{% trans "Prénom" %} *</label>
                       <div class="control">
                         <input name="firstname" id="firstname" class="input" type="text" placeholder="Jean">
                       </div>
                     </div>
                     <div class="field">
-                      <label for="email" class="label">Adresse e-mail *</label>
+                      <label for="email" class="label">{% trans "Adresse e-mail" %} *</label>
                       <div class="control">
                         <input name="email" id="email" class="input" type="email" placeholder="exemple@mail.com">
                       </div>
@@ -46,13 +47,13 @@
                   </div>
                   <div class="column is-6">
                     <div class="field">
-                      <label for="lastname" class="label">Nom *</label>
+                      <label for="lastname" class="label">{% trans "Nom" %} *</label>
                       <div class="control">
                         <input name="lastname" id="lastname" class="input" type="text" placeholder="Dupont">
                       </div>
                     </div>
                     <div class="field">
-                      <label for="country" class="label">Pays *</label>
+                      <label for="country" class="label">{% trans "Pays" %} *</label>
                       <div class="control">
                         <input name="country" id="country" class="input" type="text" placeholder="France">
                       </div>
@@ -61,27 +62,26 @@
                 </div>
 
                 <div class="field">
-                  <label for="subject" class="label">Quelle est la raison de votre prise de contact ?</label>
+                  <label for="subject" class="label">{% trans "Quelle est la raison de votre prise de contact ?" %}</label>
                   <div class="control">
                     <div class="select">
                       <select name="subject" id="subject">
-                        <option value="Proposition de collaboration">Proposition de collaboration</option>
-                        <option value="Partage d'actualités">Partage d'actualités</option>
-                        <option value="Partage de ressources">Partage de ressources</option>
-                        <option value="Adhésion au réseau">Adhésion au réseau</option>
-                        <option value="Demande d'informations sur l'ART Progysat">Demande d'informations sur l'ART Progysat
+                        <option value="{% trans "Proposition de collaboration" %}">{% trans "Proposition de collaboration" %}</option>
+                        <option value="{% trans "Partage d'actualités" %}">{% trans "Partage d'actualités" %}</option>
+                        <option value="{% trans "Partage de ressources" %}">{% trans "Partage de ressources" %}</option>
+                        <option value="{% trans "Adhésion au réseau" %}">{% trans "Adhésion au réseau" %}</option>
+                        <option value="Demande d'informations sur l'ART Progysat">{% trans "Demande d'informations sur l'ART Progysat" %}
                         </option>
-                        <option value="Avis sur ce site web" {% if review_selected %}selected{% endif %}>Avis sur ce
-                          site web
+                        <option value="{% trans 'Avis sur ce site web' %}" {% if review_selected %}selected{% endif %}>{% trans 'Avis sur ce site web' %}
                         </option>
-                        <option value="Autre">Autre</option>
+                        <option value="Autre">{% trans "Autre" %}</option>
                       </select>
                     </div>
                   </div>
                 </div>
 
                 <div class="field">
-                  <label for="message" class="label">Message</label>
+                  <label for="message" class="label">{% trans "Message" %}</label>
                   <div class="control">
                     <textarea name="message" id="message" class="textarea" placeholder="Textarea"></textarea>
                   </div>
@@ -91,7 +91,7 @@
                   <div class="control">
                     <label class="checkbox">
                       <input name="agree" type="checkbox">
-                      J'autorise ce site à conserver mes données transmises via ce formulaire
+                      {% trans "J'autorise ce site à conserver mes données transmises via ce formulaire" %}
                     </label>
                   </div>
                 </div>

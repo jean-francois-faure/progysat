@@ -1,11 +1,12 @@
 {% load wagtailcore_tags %}
 {% load main_tags %}
+{% load i18n %}
 
 <nav class="breadcrumb" aria-label="breadcrumbs">
   <ul>
-    <li><a href="/{{ language_code }}/">Accueil</a></li>
+    <li><a href="/{{ language_code }}/">{% trans "Accueil" %}</a></li>
     {% if news %}
-      <li><a href="{% news_page_url %}">Actualités</a></li>
+      <li><a href="{% news_page_url %}">{% trans "Actualités" %}</a></li>
       <li class="is-active"><a href="{% news_page_url news %}">{{ news.name }}</a></li>
     {% elif page %}
       <li class="is-active"><a href="{% pageurl page %}">{{ page.title }}</a></li>

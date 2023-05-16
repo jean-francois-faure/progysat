@@ -3,12 +3,13 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load main_tags %}
+{% load i18n %}
 
 {% block content %}
   <div class="container pt-3 mb-5">
     {% include "components/breadcrumbs.html" %}
 
-    <h1 class="title is-1">Les ressources</h1>
+    <h1 class="title is-1">{% trans "Les ressources" %}</h1>
   </div>
   <div id="app">
     {% include "elements/resources_page/filters.html" %}
@@ -17,10 +18,10 @@
       <div>
         <p class="has-text-weight-bold my-4">
           <template v-if="filteredResources.length">
-            [[ filteredResources.length ]] résultats correspondent à votre recherche
+            [[ filteredResources.length ]] {% trans "résultats correspondent à votre recherche" %}
           </template>
           <template v-else>
-            aucun résultat correspondant
+            {% trans "aucun résultat correspondant" %}
           </template>
         </p>
         <div class="mb-6" style="display: flex; justify-content: center">
@@ -30,7 +31,7 @@
                 <a>
                 <span class="icon is-small"
                       style="line-height: 0">{% include "components/icon.html" with name="list-check" size="16" %}</span>
-                  <span>Voir la liste</span>
+                  <span>{% trans "Voir la liste" %}</span>
                 </a>
               </li>
               <li :class="isMapView ? 'is-active' : ''" @click="enableMapView()">
@@ -38,7 +39,7 @@
                 <span class="icon is-small" style="line-height: 0">
                   {% include "components/icon.html" with name="earth" size="16" %}
                 </span>
-                  <span>Voir sur la carte</span>
+                  <span>{% trans "Voir sur la carte" %}</span>
                 </a>
               </li>
             </ul>
@@ -304,7 +305,7 @@
                       title.className = "mb-4";
                       title.innerHTML = (
                           "<span class='has-text-weight-bold'>" + resources.length + " ressources </span>"
-                          + "disponibles en  <span class='has-text-weight-bold'>" 
+                          + "disponibles en  <span class='has-text-weight-bold'>"
                           + " <span class='has-text-weight-bold'>" + localityParams.name + "</span> :"
                       );
                       popupHolder.appendChild(title);

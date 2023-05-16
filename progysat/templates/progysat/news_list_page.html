@@ -3,6 +3,7 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load main_tags %}
+{% load i18n %}
 
 {% block content %}
   <div class="container">
@@ -13,11 +14,11 @@
     <div id="app">
       <div class="section has-background-info-light mt-6">
         <div class="container">
-          <h2 class="title is-5">Filtrer les actualités</h2>
+          <h2 class="title is-5">{% trans "Filtrer les actualités" %}</h2>
           <div class="filter-holder">
             <button @click="selectAllNews" class="button is-primary is-rounded"
                     :class="isAllNews ? '' : 'has-background-white is-outlined'">
-              Toutes les actualités
+              {% trans "Toutes les actualités" %}
             </button>
 
             <button class="button is-rounded is-primary"
@@ -33,7 +34,7 @@
       <div class="section container px-0">
         <div class="card-holder" style="align-items: flex-start">
           <div v-if="!filteredNews.length" class="is-size-4">
-            Aucune actualité correspondante
+            {% trans "Aucune actualité correspondante" %}
           </div>
           <template v-for="news in filteredNews" :key="news.id">
             <a :href="[[ news.link ]]">
@@ -50,7 +51,7 @@
                 <div class="card-footer pt-0" style="flex-direction: column; padding: 24px; border: none;">
                   <div class="mt-4">
                     <button class="button is-secondary is-medium">
-                      Lire la suite
+                      {% trans "Lire la suite" %}
                     </button>
                   </div>
                 </div>

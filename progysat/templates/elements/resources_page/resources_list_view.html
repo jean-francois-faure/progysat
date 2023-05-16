@@ -22,8 +22,8 @@
               <span class="icon">
                 <img v-if="resource.thematics.length < 2" :src="'{% static 'img/thematics/unspecified.svg' %}'">
               </span>
-              <template v-if="resource.thematics.length">Plusieurs thématiques</template>
-              <template v-else>Sans thématique</template>
+              <template v-if="resource.thematics.length">{% trans "Plusieurs thématiques" %}</template>
+              <template v-else>{% trans "Sans thématique" %}</template>
             </span>
               </template>
             </div>
@@ -64,7 +64,7 @@
         <span v-if="resource.is_description_long"
               class="button is-info is-small is-outlined"
               @click="resource.showFullDescription = !resource.showFullDescription">
-          afficher [[ resource.showFullDescription ? 'moins' : 'plus']]
+          {% trans "afficher" %} [[ resource.showFullDescription ? '{% trans "moins" %}' : '{% trans "plus" %}']]
         </span>
       </div>
 
@@ -73,14 +73,14 @@
           <span v-if="resource.source_name">
             <span class="icon"><img src="{% static 'img/source.svg' %}"
                                     style="width: 12px; height: 12px;"></span>
-            Source : [[ resource.source_name ]]
+            {% trans "Source" %} : [[ resource.source_name ]]
           </span>
         </div>
         <div v-if="resource.geo_dev_creation">
           <span>
             <span class="icon"><img src="{% static 'img/resource_is_progysat.svg' %}"
                                     style="width: 12px; height: 12px;"></span>
-              Ressource Progysat
+              {% trans "Ressource Progysat" %}
             </span>
         </div>
         <a :href="[[ resource.link ]]"
@@ -91,7 +91,7 @@
             <span class="icon">
               {% include "components/icon.html" with size="16" name="share-box" %}
             </span>
-              <span>Accéder à la ressource</span>
+              <span>{% trans "Accéder à la ressource" %}</span>
             </button>
           </div>
         </a>

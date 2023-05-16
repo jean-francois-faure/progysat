@@ -17,7 +17,7 @@
       <p class="is-size-7 has-text-primary">{{ news.publication_date | date }}</p>
       <p>{{ news.introduction|richtext }}</p>
       <div class="mt-3">
-        <a href="{{ news.link }}" class="button is-secondary">Lire la suite</a>
+        <a href="{{ news.link }}" class="button is-secondary">{% trans "Lire la suite" %}</a>
       </div>
     </div>
   </div>
