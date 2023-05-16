@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.utils import translation
 from django.templatetags.static import static
 
 from progysat.models import HomePage
@@ -26,12 +25,14 @@ class SearchDescriptionAndTranslationMiddleware:
         return response
 
     def process_template_response(self, request, response):
-        from wagtail.models import Page, Locale
+        from wagtail.models import Locale
+
         context = response.context_data
 
-        locales = Locale.objects.all()
+        locales = list(Locale.objects.all())
         translated_urls = {
-            locale.language_code: self.home_pages[locale.language_code] and self.home_pages[locale.language_code].url
+            locale.language_code: self.home_pages[locale.language_code]
+            and self.home_pages[locale.language_code].url
             for locale in locales
         }
 
@@ -43,7 +44,9 @@ class SearchDescriptionAndTranslationMiddleware:
         elif context.get("page"):
             translations = context["page"].get_translations()
             for page_translation in translations:
-                translated_urls[page_translation.locale.language_code] = page_translation.url
+                translated_urls[
+                    page_translation.locale.language_code
+                ] = page_translation.url
 
             seo_title = context["page"].seo_title or context["page"].title
             search_description = context["page"].search_description

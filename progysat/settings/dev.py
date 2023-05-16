@@ -13,6 +13,14 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 WAGTAILADMIN_BASE_URL = "http://localhost:8000"
 
+# debug
+MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware"
+] + MIDDLEWARE  # noqa: F405
+INTERNAL_IPS = ("127.0.0.1",)
+INSTALLED_APPS += [  # noqa: F405
+    "debug_toolbar",
+]
 
 try:
     from .local import *  # noqa: F401,F403

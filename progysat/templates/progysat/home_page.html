@@ -3,6 +3,7 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 {% load main_tags %}
+{% load i18n %}
 
 {% block body_class %}template-homepage{% endblock %}
 
@@ -11,17 +12,13 @@
     <div class="section pt-0 pb-4">
       <div class="columns" style="justify-content: space-between">
         <div class="column is-6" style="max-width: 550px">
-          <h1 class="title is-2">Progysat, lorem ipsum...
-          </h1>
           <p>
             {{ page.specific.introduction|richtext }}
           </p>
-          <p class="">
-            Progysat, c'est aussi :
-              <a href="{{ resources_link }}">
-                <span class="has-text-weight-bold is-size-3 ">{{ n_resources }} ressources</span>
-              </a>
-          </p>
+          <a href="{{ resources_link }}">
+            <span class="has-text-weight-bold is-size-3 ">
+              {{ n_resources }} {% trans 'ressources' %} </span>
+          </a>
         </div>
         <div class="column is-5">
           <img src="{% static 'img/home-intro-image.svg' %}" style="max-height: 250px;">
@@ -40,7 +37,7 @@
         {% endfor %}
       </div>
       <div class="has-text-centered mt-5">
-        <a href="{{ news_list_link }}" class="button is-medium is-secondary">Toutes les actualités</a>
+        <a href="{{ news_list_link }}" class="button is-medium is-secondary">{% trans 'Toutes les actualités' %}</a>
       </div>
     </div>
   </div>
@@ -55,7 +52,7 @@
         {{ page.specific.resources_block_explication|richtext }}
       </p>
       <div class="has-text-centered mt-5">
-        <a href="{{ resources_link }}" class="button is-medium is-secondary">Toutes les ressources</a>
+        <a href="{{ resources_link }}" class="button is-medium is-secondary">{% trans "Toutes les ressources" %}</a>
       </div>
     </div>
   </div>
