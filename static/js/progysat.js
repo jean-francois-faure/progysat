@@ -12,3 +12,12 @@ function updateNavbarSuccinctStatus() {
 }
 
 window.addEventListener('scroll', updateNavbarSuccinctStatus);
+
+function toggleLanguageDropdown() {
+    var el = document.getElementById("language-dropdown");
+    if (el.classList.contains('is-active')){
+        el.classList.remove('is-active');
+    } else {
+        el.classList.add('is-active');
+    }
+}

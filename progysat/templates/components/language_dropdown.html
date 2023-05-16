@@ -1,0 +1,35 @@
+{% if page and language_code and language_str %}
+  <div class="navbar-item">
+    <div class="dropdown" id="language-dropdown">
+      <div class="dropdown-trigger">
+        <button onclick="toggleLanguageDropdown()" id="dropdown-toggle" class="button" aria-haspopup="true" aria-controls="dropdown-menu2">
+          <span style="line-height: 0.9rem;">🇬🇧🇫🇷<br>🇸🇷🇧🇷</span>
+          <span class="icon is-small down" style="margin-left: 0.25em;margin-right: calc(-0.5em - 1px);">
+            {% include 'img/angle-down.svg' %}
+          </span>
+          <span class="icon is-small up">
+            {% include 'img/angle-up.svg' %}
+          </span>
+        </button>
+      </div>
+
+      <div class="dropdown-menu" id="dropdown-menu2" role="menu" style="min-width: 7rem">
+        <div class="dropdown-content">
+          {% for locale in locales %}
+            <div class="dropdown-item">
+              <a
+                class="navbar-item"
+                href="{{ translated_urls|get_item:locale.language_code }}"
+                rel="alternate"
+                hreflang="{{ language_code }}"
+                style="max-width: 5rem"
+              >
+              {{ locale }}
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

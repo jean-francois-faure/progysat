@@ -7,11 +7,11 @@
       <div class="navbar-brand">
         <a class="navbar-item logo-holder" href="/{{ language_code }}/">
           <img src="/static/img/progysat.png" width="256" height="47">
-          <span class="navbar-additional-logo">
-            <img src="/static/img/theia.png" width="40" height="42">
-            <span style="max-width: 198px;display: inline-block;position: relative;bottom: 6px;"
-                  class="is-size-7 ml-2">Animation Régionale Pays du Sud du pôle Theia</span>
-          </span>
+{#          TODO REMOVE IF NOT USED#}
+{#          <span class="navbar-additional-logo">#}
+{#            <span style="max-width: 198px;display: inline-block;position: relative;bottom: 6px;"#}
+{#                  class="is-size-7 ml-2">Animation Régionale Pays du Sud du pôle Theia</span>#}
+{#          </span>#}
         </a>
 
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
@@ -67,37 +67,7 @@
               </a>
             </div>
           </div>
-          {# language change #}
-          {% if page and language_code and language_str %}
-            <div class="dropdown is-active">
-              <div class="dropdown-trigger">
-                <button class="button" aria-haspopup="true" aria-controls="dropdown-menu2">
-                  <span>Content</span>
-                  <span class="icon is-small">
-                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                  </span>
-                </button>
-              </div>
-              
-              <div class="dropdown-menu" id="dropdown-menu2" role="menu">
-                <div class="dropdown-content">
-                  {% for locale in locales %}
-                    <div class="dropdown-item">
-                      <a
-                        class="navbar-item"
-                        href="{{ translated_urls|get_item:locale.language_code }}"
-                        rel="alternate"
-                        hreflang="{{ language_code }}"
-                        style="max-width: 5rem"
-                      >
-                      {{ locale }}
-                      </a>
-                    </div>
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-          {% endif %}
+          {% include "components/language_dropdown.html" %}
         </div>
       </div>
     </nav>

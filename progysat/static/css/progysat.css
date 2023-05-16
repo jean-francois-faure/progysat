@@ -30,6 +30,17 @@
     z-index: 10;
 }
 
+/*LANGUAGE TOGGLE*/
+.navbar .dropdown > .dropdown-trigger .icon.up {
+    display: none;
+}
+.navbar .dropdown.is-active > .dropdown-trigger .icon.up {
+    display: inline;
+}
+.navbar .dropdown.is-active > .dropdown-trigger .icon.down {
+    display: none;
+}
+
 .body-content {
     padding-top: 9rem;
     background: white;
