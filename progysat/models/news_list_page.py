@@ -7,7 +7,7 @@ from rest_framework.utils import json
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.models import Page
 
-from progysat.models import ActualityType
+from progysat.models.models import ActualityType
 from progysat.models.news import News
 
 
@@ -48,14 +48,18 @@ class NewsListPage(RoutablePageMixin, Page):
         current_language = translation.get_language()
         context["has_vue"] = True
         context["types"] = json.dumps(
-            [model_to_dict(type_) for type_ in ActualityType.objects.filter(
+            [
+                model_to_dict(type_)
+                for type_ in ActualityType.objects.filter(
                     locale__language_code=current_language
-                )]
+                )
+            ]
         )
         context["news_list"] = json.dumps(
-            [news.to_dict() for news in News.objects.filter(
-                    locale__language_code=current_language
-                )]
+            [
+                news.to_dict()
+                for news in News.objects.filter(locale__language_code=current_language)
+            ]
         )
 
         return context

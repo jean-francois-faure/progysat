@@ -22,7 +22,7 @@
 }
 
 .navbar.is-succinct, .navbar-brand {
-    min-height: 6.5rem;
+    min-height: 4rem;
 }
 
 .navbar {

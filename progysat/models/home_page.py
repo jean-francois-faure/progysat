@@ -1,24 +1,22 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.utils import translation
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
 from wagtail.models import Page
+
+from progysat.utils import objects_for_current_language
 
 
 class HomePage(Page, models.Model):
     from progysat.models.utils import SIMPLE_RICH_TEXT_FIELD_FEATURE
 
     def get_context(self, request, *args, **kwargs):
-        from progysat.models.resource import Resource
-        from progysat.models.news import News
-
-        current_language = translation.get_language()
+        from progysat.models import Resource, News
 
         context = super().get_context(request, *args, **kwargs)
-        context["n_resources"] = Resource.objects.filter(locale__language_code=current_language).count()
+        context["n_resources"] = objects_for_current_language(Resource).count()
         context["n_members"] = User.objects.all().count()
-        current_language_news = News.objects.filter(locale__language_code=current_language)
+        current_language_news = objects_for_current_language(News)
         first_news = current_language_news.filter(is_progysat=True).first()
         if not first_news:
             first_news = current_language_news.first()

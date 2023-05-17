@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 from wagtail.admin.panels import FieldPanel
 from wagtail import blocks
 from wagtail.fields import StreamField
@@ -130,3 +131,25 @@ class TimeStampedModel(models.Model):
 
     class Meta:
         abstract = True
+
+
+class Tag(models.Model):
+    name = models.CharField(verbose_name="Nom", max_length=100)
+    slug = models.SlugField(
+        verbose_name="Slug",
+        max_length=100,
+        allow_unicode=True,
+        blank=True,
+        help_text="ce champ est rempli automatiquement s'il est laissé vide",
+    )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)

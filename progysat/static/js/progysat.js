@@ -14,9 +14,7 @@ function updateNavbarSuccinctStatus() {
 window.addEventListener('scroll', updateNavbarSuccinctStatus);
 
 function toggleLanguageDropdown() {
-    console.log("toggleLanguageDropdown 0");
     var el = document.getElementById("language-dropdown");
-    console.log("toggleLanguageDropdown", el);
     if (el.classList.contains('is-active')){
         el.classList.remove('is-active');
     } else {

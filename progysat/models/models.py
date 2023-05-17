@@ -1,18 +1,13 @@
 from typing import List
 
 from django.db import models
-from django.templatetags.static import static
-from taggit.models import TagBase
-from unidecode import unidecode
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSetting
 from wagtail.contrib.settings.registry import register_setting
-from wagtail.fields import RichTextField
-from wagtail.models import Page, TranslatableMixin
-from wagtail.templatetags.wagtailcore_tags import pageurl
 from wagtail.documents.models import Document
+from wagtail.models import Page, TranslatableMixin
 
-from progysat.models.utils import FreeBodyField, SIMPLE_RICH_TEXT_FIELD_FEATURE
+from progysat.models.utils import FreeBodyField, Tag
 
 
 class ContentPage(Page, FreeBodyField):
@@ -40,21 +35,21 @@ class ContentPage(Page, FreeBodyField):
     ]
 
 
-class ResourceType(TranslatableMixin, TagBase):
+class ResourceType(TranslatableMixin, Tag):
     class Meta(TranslatableMixin.Meta):
         ordering = ("name",)
         verbose_name = "Type de ressource"
         verbose_name_plural = "Types de ressource"
 
 
-class ActualityType(TranslatableMixin, TagBase):
+class ActualityType(TranslatableMixin, Tag):
     class Meta(TranslatableMixin.Meta):
         ordering = ("name",)
         verbose_name = "Type d'actualité"
         verbose_name_plural = "Types d'actualité"
 
 
-class Thematic(TranslatableMixin, TagBase):
+class Thematic(TranslatableMixin, Tag):
     class Meta(TranslatableMixin.Meta):
         verbose_name = "Thématique"
         verbose_name_plural = "Thématiques"
