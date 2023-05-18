@@ -1,12 +1,11 @@
 from django.templatetags.static import static
 from django.utils.html import format_html
-from wagtail.admin.panels import FieldPanel
+from wagtail import hooks
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin,
     ModelAdminGroup,
     modeladmin_register,
 )
-from wagtail import hooks
 from wagtail_localize.modeladmin.options import TranslatableModelAdmin
 
 from progysat.models.models import Thematic, ActualityType, ResourceType, GeoZone
@@ -30,20 +29,15 @@ class RessourceModelAdmin(TranslatableModelAdmin):
     search_fields = ("name",)
 
 
-class ThematicModelAdmin(TranslatableModelAdmin):
+class ThematicModelAdmin(ModelAdmin):
     model = Thematic
     menu_label = "Thématiques"
     menu_icon = "tag"
     add_to_settings_menu = False
     search_fields = ("name",)
-    panels = [
-        FieldPanel("name"),
-        FieldPanel("slug"),
-        FieldPanel("icon"),
-    ]
 
 
-class ResourceTypeModelAdmin(TranslatableModelAdmin):
+class ResourceTypeModelAdmin(ModelAdmin):
     model = ResourceType
     menu_label = "Types de ressource"
     menu_icon = "tag"
@@ -66,7 +60,7 @@ class NewsModelAdmin(TranslatableModelAdmin):
     search_fields = ("name",)
 
 
-class ActualityTypeModelAdmin(TranslatableModelAdmin):
+class ActualityTypeModelAdmin(ModelAdmin):
     model = ActualityType
     menu_label = "Types d'actualité"
     menu_icon = "tag"
@@ -81,8 +75,8 @@ class ActualityAdminGroup(ModelAdminGroup):
     items = (NewsModelAdmin, ActualityTypeModelAdmin)
 
 
-class GeoZoneModelAdmin(TranslatableModelAdmin):
-    model = GeoZone 
+class GeoZoneModelAdmin(ModelAdmin):
+    model = GeoZone
     menu_label = "Zones géographique"
     menu_icon = "site"
     add_to_settings_menu = False

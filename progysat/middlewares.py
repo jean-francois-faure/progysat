@@ -31,7 +31,7 @@ class SearchDescriptionAndTranslationMiddleware:
 
         locales = list(Locale.objects.all())
         translated_urls = {
-            locale.language_code: self.home_pages[locale.language_code]
+            locale.language_code: self.home_pages.get(locale.language_code)
             and self.home_pages[locale.language_code].url
             for locale in locales
         }

@@ -1,7 +1,6 @@
 import json
 from typing import List
 
-from django.forms import model_to_dict
 from wagtail.contrib.routable_page.models import RoutablePageMixin
 from wagtail.models import Page
 
@@ -23,16 +22,13 @@ class ResourcesPage(RoutablePageMixin, Page):
         context = super().get_context(request, *args, **kwargs)
         context["has_vue"] = True
         context["thematics"] = json.dumps(
-            [thematic.to_dict() for thematic in objects_for_current_language(Thematic)]
+            [thematic.to_dict() for thematic in Thematic.objects.all()]
         )
         context["resource_types"] = json.dumps(
-            [
-                model_to_dict(type_)
-                for type_ in objects_for_current_language(ResourceType)
-            ]
+            [type_.to_dict() for type_ in ResourceType.objects.all()]
         )
         context["zones"] = json.dumps(
-            [zone.to_dict() for zone in objects_for_current_language(GeoZone)]
+            [zone.to_dict() for zone in GeoZone.objects.all()]
         )
         context["resources"] = json.dumps(
             [

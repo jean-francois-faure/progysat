@@ -5,9 +5,9 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSetting
 from wagtail.contrib.settings.registry import register_setting
 from wagtail.documents.models import Document
-from wagtail.models import Page, TranslatableMixin
+from wagtail.models import Page
 
-from progysat.models.utils import FreeBodyField, Tag
+from progysat.models.utils import FreeBodyField, MultiLanguageTag
 
 
 class ContentPage(Page, FreeBodyField):
@@ -35,22 +35,20 @@ class ContentPage(Page, FreeBodyField):
     ]
 
 
-class ResourceType(TranslatableMixin, Tag):
-    class Meta(TranslatableMixin.Meta):
-        ordering = ("name",)
+class ResourceType(MultiLanguageTag):
+    class Meta:
         verbose_name = "Type de ressource"
         verbose_name_plural = "Types de ressource"
 
 
-class ActualityType(TranslatableMixin, Tag):
-    class Meta(TranslatableMixin.Meta):
-        ordering = ("name",)
+class ActualityType(MultiLanguageTag):
+    class Meta:
         verbose_name = "Type d'actualité"
         verbose_name_plural = "Types d'actualité"
 
 
-class Thematic(TranslatableMixin, Tag):
-    class Meta(TranslatableMixin.Meta):
+class Thematic(MultiLanguageTag):
+    class Meta:
         verbose_name = "Thématique"
         verbose_name_plural = "Thématiques"
 
@@ -69,13 +67,11 @@ class Thematic(TranslatableMixin, Tag):
         return to_return
 
 
-class GeoZone(TranslatableMixin):
-    class Meta(TranslatableMixin.Meta):
-        ordering = ("name",)
+class GeoZone(MultiLanguageTag):
+    class Meta:
         verbose_name = "zone géographique"
         verbose_name_plural = "zones géographiques"
 
-    name = models.CharField(verbose_name="Nom", max_length=60)
     code = models.CharField(verbose_name="code (ne pas changer !)", max_length=20)
     latitude = models.FloatField(verbose_name="latitude du centre")
     longitude = models.FloatField(verbose_name="longitude du centre")

@@ -4,15 +4,12 @@ organization_slug: telescoop
 project_slug: progysat
 main_user: progysat
 main_user_uid: 1070  # must be unique for each project on the server
-main_public_hostname: theia-land.art-progysat.fr
+main_public_hostname: progysat.fr
 public_hostnames:
   - progysat.tlscp.fr
-  - www.theia-land.art-progysat.fr
-  - theia-land.art-progysat.fr
-  - www.art-progysat.fr
 django_project_name: progysat
 backend_repo: https://gitlab.com/telescoop-public/progysat
-backend_application_port: 8097  # must be unique for each project on the server
+backend_application_port: 8070  # must be unique for each project on the server
 backend_static_path: /{{ organization_slug }}/{{ project_slug}}/backend_static
 backend_media_path: /{{ organization_slug }}/{{ project_slug}}/backend/media
 identity_file_path: /home/{{ main_user }}/.ssh/id_ed25519

@@ -1,4 +1,6 @@
+from django.conf import settings
 from django.db import models
+from django.utils import translation
 from django.utils.text import slugify
 from wagtail.admin.panels import FieldPanel
 from wagtail import blocks
@@ -133,23 +135,39 @@ class TimeStampedModel(models.Model):
         abstract = True
 
 
-class Tag(models.Model):
-    name = models.CharField(verbose_name="Nom", max_length=100)
+class MultiLanguageTag(models.Model):
+    class Meta:
+        abstract = True
+        ordering = ("name_fr",)
+
     slug = models.SlugField(
         verbose_name="Slug",
+        unique=True,
         max_length=100,
         allow_unicode=True,
         blank=True,
         help_text="ce champ est rempli automatiquement s'il est laissé vide",
     )
 
+    for language_code, _ in settings.LANGUAGES:
+        code = language_code.replace("-", "_")
+        locals()[f"name_{code}"] = models.CharField(
+            verbose_name=f"Nom {language_code}",
+            max_length=100,
+            default="",
+        )
+
+    @property
+    def name(self):
+        return getattr(self, f"name_{translation.get_language()}")
+
     def __str__(self):
         return self.name
 
-    class Meta:
-        abstract = True
+    def to_dict(self):
+        return {"name": self.name, "slug": self.slug}
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.name)
+            self.slug = slugify(self.name_en)
         super().save(*args, **kwargs)

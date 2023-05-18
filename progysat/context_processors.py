@@ -63,7 +63,9 @@ def load_general_context(_):
             localized_page = get_localized_page(
                 resources_page_in_default_language, language_code
             )
-            context_per_language[language_code]["resources_link"] = pageurl({}, localized_page)
+            context_per_language[language_code]["resources_link"] = pageurl(
+                {}, localized_page
+            )
 
     # Add news_list_link
     news_list_page_in_default_language = NewsListPage.objects.filter(
@@ -97,4 +99,8 @@ def general_context(_):
 def language(_):
     """Templates need a language_code. Will be overriden by django if defined."""
     from wagtail.models import Locale
-    return {"language_code": translation.get_language(), "language_str": str(Locale.objects.get(language_code="fr"))}
+
+    return {
+        "language_code": translation.get_language(),
+        "language_str": str(Locale.objects.get(language_code="fr")),
+    }
