@@ -19,7 +19,7 @@
     - name: Download employees file
       local_action:
         module: get_url
-        url: https://gitlab.com/telescoop-public/devops/company-settings/-/raw/main/employees.yaml
+        url: https://raw.githubusercontent.com/TelesCoop/company-settings/main/employees.yaml?token=GHSAT0AAAAAAB6H7MJ5V4TG6NGDOYLKCO7MZDF5NPQ
         dest: ./employees.yaml
         force: yes # file might have been updated
       become_user: "{{ ansible_user_id }}"

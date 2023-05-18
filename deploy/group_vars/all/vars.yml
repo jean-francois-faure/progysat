@@ -8,7 +8,7 @@ main_public_hostname: progysat.fr
 public_hostnames:
   - progysat.tlscp.fr
 django_project_name: progysat
-backend_repo: https://gitlab.com/telescoop-public/progysat
+backend_repo: https://github.com/TelesCoop/progysat
 backend_application_port: 8070  # must be unique for each project on the server
 backend_static_path: /{{ organization_slug }}/{{ project_slug}}/backend_static
 backend_media_path: /{{ organization_slug }}/{{ project_slug}}/backend/media

@@ -100,13 +100,13 @@
     msg: "{{command_output.stdout}}"
   when: new_ssh_key.changed
 
-- name: get latest code
+- name: get latest code from key "{{ identity_file_path }}" for repo '{{ backend_repo }}'
   git:
     repo: '{{ backend_repo }}'
     dest: "{{ backend_path }}"
     key_file: "{{ identity_file_path }}"
     force: true
-    version: master
+    version: main
     accept_hostkey: true
   become_user: "{{ main_user }}"
   register: clonecode
