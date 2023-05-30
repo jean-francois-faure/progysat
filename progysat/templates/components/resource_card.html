@@ -14,18 +14,9 @@
         <div class="is-flex" style="justify-content: space-between; font-size: 11px">
           <div>
             {% if main_thematic %}
-              <span class="icon">
-                <img src="{{ main_thematic.icon_or_default }}">
-              </span>
               {{ main_thematic.name }}
             {% else %}
               <span>
-                <span class="icon">
-                {% if resource.thematics.count %}
-                {% else %}
-                  <img src="{% static 'img/thematics/unspecified.svg' %}">
-                {% endif %}
-                </span>
                 {% if resource.thematics.count %}
                   {% trans "Plusieurs thématiques" %}
                 {% else %}
@@ -44,19 +35,6 @@
           {% endif %}
         </div>
 
-        <div class="my-5 has-text-centered">
-          {% if main_thematic %}
-            <img src="{{ main_thematic.icon_or_default }}" style="width: 107px ; height: 107px">>
-          {% else %}
-            {% if resource.thematics.count %}
-              <img src="{% static 'img/thematics/multiple.svg' %}"
-                   style="width: 107px ; height: 107px">
-            {% else %}
-              <img src="{% static 'img/thematics/unspecified_color.svg' %}"
-                   style="width: 107px ; height: 107px">
-            {% endif %}
-          {% endif %}
-        </div>
         <div>
           <span class="has-text-weight-bold">{{ resource.resource_type }}</span>
         </div>

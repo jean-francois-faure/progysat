@@ -5,9 +5,14 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSetting
 from wagtail.contrib.settings.registry import register_setting
 from wagtail.documents.models import Document
+from wagtail.fields import RichTextField
 from wagtail.models import Page
 
-from progysat.models.utils import FreeBodyField, MultiLanguageTag
+from progysat.models.utils import (
+    FreeBodyField,
+    MultiLanguageTag,
+    ModelWithTranslatedName,
+)
 
 
 class ContentPage(Page, FreeBodyField):
@@ -52,17 +57,17 @@ class Thematic(MultiLanguageTag):
         verbose_name = "Thématique"
         verbose_name_plural = "Thématiques"
 
-    icon = models.ForeignKey(Document, on_delete=models.SET_NULL, null=True, blank=True)
-
-    @property
-    def icon_or_default(self):
-        if self.icon:
-            return self.icon.url
-        else:
-            return f"/static/img/thematics/{self.slug}.svg"
+    image = models.ForeignKey(
+        Document, on_delete=models.SET_NULL, null=True, blank=True
+    )
+    description = RichTextField(max_length=500, default="")
 
     def to_dict(self):
-        to_return = {"name": self.name, "slug": self.slug, "icon": self.icon_or_default}
+        to_return = {
+            "name": self.name,
+            "slug": self.slug,
+            "image": self.image and self.image.url,
+        }
 
         return to_return
 
@@ -125,3 +130,27 @@ class Contact(models.Model):
     lastname = models.CharField(max_length=50)
     subject = models.CharField(max_length=40)
     message = models.TextField()
+
+
+class FooterDetail(ModelWithTranslatedName):
+    class Meta:
+        verbose_name = "Image en bas de footer"
+        verbose_name_plural = "Images en bas de footer"
+        ordering = ("order",)
+
+    image = models.ForeignKey(Document, on_delete=models.CASCADE)
+    order = models.FloatField(
+        verbose_name="ordre",
+        help_text="Les images du bas seront présentées par ordre croissant",
+    )
+    url = models.URLField(verbose_name="lien", null=True, blank=True)
+
+    def to_dict(self, language_code=None):
+        to_return = {"image": self.image.url, "name": self.name, "url": self.url}
+        if language_code:
+            to_return["name"] = getattr(self, f"name_{language_code.replace('-', '_')}")
+
+        return to_return
+
+    def __str__(self):
+        return self.name_fr

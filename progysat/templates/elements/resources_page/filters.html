@@ -22,9 +22,6 @@
           <button v-for="thematic in thematics" class="button is-rounded"
                   :class="'is-' + thematic.slug + ' ' + (selectedThematics[thematic.slug] ? '' : 'is-outlined')"
                   @click="toggleThematic(thematic.slug)">
-            <span class="icon">
-              <img :src="thematic.icon">
-            </span>
             <span>[[ thematic.name ]]</span>
           </button>
           <button @click="resetThematics" class="button is-text is-rounded">{% trans "Toutes" %}</button>

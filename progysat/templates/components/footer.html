@@ -4,9 +4,10 @@
 <footer class="footer">
   <div class="container">
     <div class="columns-widescreen is-justify-content-space-between">
-      <div class="column is-8 is-flex is-align-items-center desktop is-flex-direction-column-until-widescreen"
+      <div class="is-flex is-align-items-center desktop is-flex-direction-column-until-widescreen"
            style="margin: auto">
-        <img src="{% static 'img/progysat.png' %}" width="206" height="38">
+        {# TODO change image or remove#}
+{#        <img src="{% static 'img/progysat.png' %}" width="206" height="38">#}
         {% for child_page in home_page.get_children.live %}
           {% if child_page.specific.show_in_footer %}
             <a href="{{ child_page.url }}" class="button is-small is-text">{{ child_page.title }}</a>
@@ -23,11 +24,22 @@
           </a>
         {% endif %}
       </div>
-      <div class="column is-flex is-4 is-justify-content-center footer-logos is-align-items-center">
-        <img src="{% static 'img/logo-pia.png' %}"
-             width="75" height="75"
-             alt="Soutenu par le gouvernement au travers du programme Investir l'Avenir">
+    </div>
+    <div class="columns-widescreen is-justify-content-space-between">
+      <div class="column is-8 is-flex is-align-items-center desktop is-flex-direction-column-until-widescreen">
+        {% for footer_detail in footer_details %}
+          {% if footer_detail.url %}
+            <a class="footer-detail" href="{{ footer_detail.url }}">
+              <img class="footer-image" src="{{ footer_detail.image }}" alt="{{ footer_detail.name }}" title="{{ footer_detail.name }}">
+            </a>
+          {% else %}
+            <span class="footer-detail">
+              <img class="footer-image" src="{{ footer_detail.image }}" alt="{{ footer_detail.name }}" title="{{ footer_detail.name }}">
+            </span>
+          {% endif %}
+        {% endfor %}
       </div>
+      <div></div>
     </div>
     <div class="columns-widescreen is-justify-content-space-between">
       <div class="column is-8 is-flex is-align-items-center desktop is-flex-direction-column-until-widescreen">

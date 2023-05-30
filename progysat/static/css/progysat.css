@@ -1,9 +1,3 @@
-.top-left-image {
-    position: fixed;
-    top: 0;
-    z-index: 35;
-}
-
 /* NAVBAR */
 .logo-holder {
     display: flex;
@@ -82,12 +76,6 @@
     flex: auto;
 }
 
-@media screen and (max-width: 1733px) {
-    .top-left-image {
-        display: none;
-    }
-}
-
 .pdf-holder {
     display: flex;
     flex-direction: row;
@@ -133,4 +121,11 @@
 .tag-holder * {
     margin-left: 8px;
     margin-top: 8px;
+}
+
+.footer-image {
+    width: 70px;
+}
+.footer-detail + .footer-detail {
+    margin-left: 40px;
 }

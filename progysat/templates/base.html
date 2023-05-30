@@ -35,9 +35,6 @@
 {% wagtailuserbar %}
 {% include "components/navbar.html" %}
 
-{# TODO image should be displayed only on widescreen #}
-<img src="{% static 'img/top-background.svg' %}" class="top-left-image" style="pointer-events: none">
-
 {% if has_vue %}
   <script src="{% static 'js/vue.3.2.31.min.js' %}"></script>
 {% endif %}

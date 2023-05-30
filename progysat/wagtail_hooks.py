@@ -8,7 +8,13 @@ from wagtail.contrib.modeladmin.options import (
 )
 from wagtail_localize.modeladmin.options import TranslatableModelAdmin
 
-from progysat.models.models import Thematic, ActualityType, ResourceType, GeoZone
+from progysat.models.models import (
+    Thematic,
+    ActualityType,
+    ResourceType,
+    GeoZone,
+    FooterDetail,
+)
 from progysat.models.news import News
 from progysat.models.resource import Resource
 
@@ -83,6 +89,14 @@ class GeoZoneModelAdmin(ModelAdmin):
     search_fields = ("name",)
 
 
+class FooterDetailAdmin(ModelAdmin):
+    model = FooterDetail
+    menu_label = "Sponsors et liens"
+    menu_icon = "cog"
+    add_to_settings_menu = True
+
+
 modeladmin_register(RessourcesAdminGroup)
 modeladmin_register(ActualityAdminGroup)
 modeladmin_register(GeoZoneModelAdmin)
+modeladmin_register(FooterDetailAdmin)

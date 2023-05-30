@@ -6,7 +6,7 @@ from django.utils import translation
 from wagtail.templatetags.wagtailcore_tags import pageurl
 
 from progysat.models import ResourcesPage, NewsListPage
-
+from progysat.models.models import FooterDetail
 
 DEFAULT_LANGUAGE = settings.LANGUAGES[0][0]
 LAST_UPDATE: Dict[str, Union[None, datetime.datetime]] = {
@@ -79,6 +79,13 @@ def load_general_context(_):
             context_per_language[language_code]["news_list_link"] = pageurl(
                 {}, localized_page
             )
+
+    # Add bottom footer images
+    for language_code, _ in language_to_locale_id.items():
+        context_per_language[language_code]["footer_details"] = [
+            detail.to_dict(language_code=language_code)
+            for detail in FooterDetail.objects.all()
+        ]
 
     return context_per_language
 
