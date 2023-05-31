@@ -10,6 +10,24 @@
 {% block content %}
   <div class="container">
     <div class="section pt-0 pb-4">
+        <img src="{% static 'img/earth.jpg' %}" alt="" style="width: 100%">
+    </div>
+
+    <div class="section py-0">
+      <h2 class="title is-3 mt-3">{{ page.specific.news_block_title|richtext }}</h2>
+      <div class="columns">
+        {% for news in news_list %}
+          <div class="column {% if forloop.counter == 1 %}is-6{% else %}is-3{% endif %}">
+            {% include "components/news_card.html" with news=news is_small=forloop.counter0 large_by_default=1 full_height=1 %}
+          </div>
+        {% endfor %}
+      </div>
+      <div class="has-text-centered mt-5">
+        <a href="{{ news_list_link }}" class="button is-medium is-secondary">{% trans 'Toutes les actualités' %}</a>
+      </div>
+    </div>
+
+    <div class="section pt-0 pb-4">
       <div class="columns" style="justify-content: space-between">
         <div class="column is-6" style="max-width: 550px">
           <p>
@@ -26,21 +44,7 @@
       </div>
     </div>
   </div>
-  <div class="has-background-info-light">
-    <div class="container section py-2">
-      <h2 class="title is-3 mt-3">{{ page.specific.news_block_title|richtext }}</h2>
-      <div class="columns">
-        {% for news in news_list %}
-          <div class="column {% if forloop.counter == 1 %}is-6{% else %}is-3{% endif %}">
-            {% include "components/news_card.html" with news=news is_small=forloop.counter0 large_by_default=1 full_height=1 %}
-          </div>
-        {% endfor %}
-      </div>
-      <div class="has-text-centered mt-5">
-        <a href="{{ news_list_link }}" class="button is-medium is-secondary">{% trans 'Toutes les actualités' %}</a>
-      </div>
-    </div>
-  </div>
+
   <div class="section container">
     <div style="margin: auto">
       <h2 class="title is-3 has-text-centered">

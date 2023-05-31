@@ -60,7 +60,7 @@ class Thematic(MultiLanguageTag):
     image = models.ForeignKey(
         Document, on_delete=models.SET_NULL, null=True, blank=True
     )
-    description = RichTextField(max_length=500, default="")
+    description = RichTextField(max_length=500, default="", blank=True, null=True)
 
     def to_dict(self):
         to_return = {

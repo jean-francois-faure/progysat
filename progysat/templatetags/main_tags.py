@@ -8,7 +8,7 @@ def news_page_url(news=None):
     from progysat.models.news_list_page import NewsListPage
 
     try:
-        news_list_page = NewsListPage.objects.get()
+        news_list_page = NewsListPage.for_current_language()
     except NewsListPage.DoesNotExist:
         raise NewsListPage.DoesNotExist("A NewsListPage must be created")
 

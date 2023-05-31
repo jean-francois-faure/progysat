@@ -25,6 +25,7 @@ class HomePage(Page, models.Model):
         else:
             news_list = current_language_news[:3]
         context["news_list"] = news_list
+        context["first_news"] = first_news
         return context
 
     # HomePage can be created only on the root

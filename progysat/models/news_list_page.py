@@ -48,12 +48,7 @@ class NewsListPage(RoutablePageMixin, Page):
         current_language = translation.get_language()
         context["has_vue"] = True
         context["types"] = json.dumps(
-            [
-                model_to_dict(type_)
-                for type_ in ActualityType.objects.filter(
-                    locale__language_code=current_language
-                )
-            ]
+            [model_to_dict(type_) for type_ in ActualityType.objects.all()]
         )
         context["news_list"] = json.dumps(
             [
@@ -63,3 +58,8 @@ class NewsListPage(RoutablePageMixin, Page):
         )
 
         return context
+
+    @staticmethod
+    def for_current_language():
+        current_language = translation.get_language()
+        return NewsListPage.objects.get(locale__language_code=current_language)
