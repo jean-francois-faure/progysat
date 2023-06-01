@@ -2,7 +2,6 @@ from typing import List
 
 from django.http import Http404
 from django.utils import translation
-from rest_framework.utils import json
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.models import Page
 
@@ -37,9 +36,9 @@ class ThematicsListPage(RoutablePageMixin, Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context["thematics_list"] = json.dumps(
-            [thematic.to_dict() for thematic in Thematic.objects.all()]
-        )
+        context["thematics"] = [
+            thematic.to_dict() for thematic in Thematic.objects.all()
+        ]
 
         return context
 
