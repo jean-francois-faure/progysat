@@ -3715,6 +3715,225 @@ a.has-text-secondary-dark:hover, a.has-text-secondary-dark:focus {
       margin-left: 0.25rem;
       margin-right: 0.25rem; }
 
+.tags {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; }
+  .tags .tag {
+    margin-bottom: 0.5rem; }
+    .tags .tag:not(:last-child) {
+      margin-right: 0.5rem; }
+  .tags:last-child {
+    margin-bottom: -0.5rem; }
+  .tags:not(:last-child) {
+    margin-bottom: 1rem; }
+  .tags.are-medium .tag:not(.is-normal):not(.is-large) {
+    font-size: 1rem; }
+  .tags.are-large .tag:not(.is-normal):not(.is-medium) {
+    font-size: 1.25rem; }
+  .tags.is-centered {
+    justify-content: center; }
+    .tags.is-centered .tag {
+      margin-right: 0.25rem;
+      margin-left: 0.25rem; }
+  .tags.is-right {
+    justify-content: flex-end; }
+    .tags.is-right .tag:not(:first-child) {
+      margin-left: 0.5rem; }
+    .tags.is-right .tag:not(:last-child) {
+      margin-right: 0; }
+  .tags.has-addons .tag {
+    margin-right: 0; }
+    .tags.has-addons .tag:not(:first-child) {
+      margin-left: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0; }
+    .tags.has-addons .tag:not(:last-child) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0; }
+
+.tag:not(body) {
+  align-items: center;
+  background-color: whitesmoke;
+  border-radius: 4px;
+  color: #324176;
+  display: inline-flex;
+  font-size: 0.75rem;
+  height: 2em;
+  justify-content: center;
+  line-height: 1.5;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+  white-space: nowrap; }
+  .tag:not(body) .delete {
+    margin-left: 0.25rem;
+    margin-right: -0.375rem; }
+  .tag:not(body).is-white {
+    background-color: white;
+    color: #0a0a0a; }
+  .tag:not(body).is-black {
+    background-color: #0a0a0a;
+    color: white; }
+  .tag:not(body).is-light {
+    background-color: whitesmoke;
+    color: rgba(0, 0, 0, 0.7); }
+  .tag:not(body).is-dark {
+    background-color: #363636;
+    color: #fff; }
+  .tag:not(body).is-primary {
+    background-color: #324176;
+    color: #fff; }
+    .tag:not(body).is-primary.is-light {
+      background-color: #f1f2f9;
+      color: #5369b6; }
+  .tag:not(body).is-link {
+    background-color: #324176;
+    color: #fff; }
+    .tag:not(body).is-link.is-light {
+      background-color: #f1f2f9;
+      color: #5369b6; }
+  .tag:not(body).is-info {
+    background-color: #209CEE;
+    color: #fff; }
+    .tag:not(body).is-info.is-light {
+      background-color: #ecf7fe;
+      color: #0e72b4; }
+  .tag:not(body).is-success {
+    background-color: #48C78E;
+    color: #fff; }
+    .tag:not(body).is-success.is-light {
+      background-color: #effaf5;
+      color: #257953; }
+  .tag:not(body).is-warning {
+    background-color: #FFE08A;
+    color: rgba(0, 0, 0, 0.7); }
+    .tag:not(body).is-warning.is-light {
+      background-color: #fffaeb;
+      color: #946d00; }
+  .tag:not(body).is-danger {
+    background-color: #FF3860;
+    color: #fff; }
+    .tag:not(body).is-danger.is-light {
+      background-color: #ffebef;
+      color: #db002c; }
+  .tag:not(body).is-agriculture {
+    background-color: #9F6B04;
+    color: #fff; }
+    .tag:not(body).is-agriculture.is-light {
+      background-color: #fef8eb;
+      color: #e09706; }
+  .tag:not(body).is-floors {
+    background-color: #7A2906;
+    color: #fff; }
+    .tag:not(body).is-floors.is-light {
+      background-color: #fef1ec;
+      color: #f45c1b; }
+  .tag:not(body).is-biodiversity {
+    background-color: #3C7E07;
+    color: #fff; }
+    .tag:not(body).is-biodiversity.is-light {
+      background-color: #f4feec;
+      color: #6ade0c; }
+  .tag:not(body).is-water {
+    background-color: #0F7BC2;
+    color: #fff; }
+    .tag:not(body).is-water.is-light {
+      background-color: #ecf7fe;
+      color: #1087d5; }
+  .tag:not(body).is-risks {
+    background-color: #EA3576;
+    color: #fff; }
+    .tag:not(body).is-risks.is-light {
+      background-color: #fdedf2;
+      color: #cb1557; }
+  .tag:not(body).is-health {
+    background-color: #3748E1;
+    color: #fff; }
+    .tag:not(body).is-health.is-light {
+      background-color: #edeffc;
+      color: #2133d9; }
+  .tag:not(body).is-cities {
+    background-color: #693BB3;
+    color: #fff; }
+    .tag:not(body).is-cities.is-light {
+      background-color: #f4f0fa;
+      color: #713fc0; }
+  .tag:not(body).is-forest {
+    background-color: #058566;
+    color: #fff; }
+    .tag:not(body).is-forest.is-light {
+      background-color: #ebfefa;
+      color: #08ddaa; }
+  .tag:not(body).is-littoral {
+    background-color: #333399;
+    color: #fff; }
+    .tag:not(body).is-littoral.is-light {
+      background-color: #f0f0fa;
+      color: #4b4bc3; }
+  .tag:not(body).is-climat {
+    background-color: #fe0000;
+    color: #fff; }
+    .tag:not(body).is-climat.is-light {
+      background-color: #ffebeb;
+      color: #eb0000; }
+  .tag:not(body).is-mnt {
+    background-color: #7a1fa0;
+    color: #fff; }
+    .tag:not(body).is-mnt.is-light {
+      background-color: #f8eefc;
+      color: #a732d7; }
+  .tag:not(body).is-secondary {
+    background-color: #E56934;
+    color: #fff; }
+    .tag:not(body).is-secondary.is-light {
+      background-color: #fdf2ed;
+      color: #b54617; }
+  .tag:not(body).is-normal {
+    font-size: 0.75rem; }
+  .tag:not(body).is-medium {
+    font-size: 1rem; }
+  .tag:not(body).is-large {
+    font-size: 1.25rem; }
+  .tag:not(body) .icon:first-child:not(:last-child) {
+    margin-left: -0.375em;
+    margin-right: 0.1875em; }
+  .tag:not(body) .icon:last-child:not(:first-child) {
+    margin-left: 0.1875em;
+    margin-right: -0.375em; }
+  .tag:not(body) .icon:first-child:last-child {
+    margin-left: -0.375em;
+    margin-right: -0.375em; }
+  .tag:not(body).is-delete {
+    margin-left: 1px;
+    padding: 0;
+    position: relative;
+    width: 2em; }
+    .tag:not(body).is-delete::before, .tag:not(body).is-delete::after {
+      background-color: currentColor;
+      content: "";
+      display: block;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%) rotate(45deg);
+      transform-origin: center center; }
+    .tag:not(body).is-delete::before {
+      height: 1px;
+      width: 50%; }
+    .tag:not(body).is-delete::after {
+      height: 50%;
+      width: 1px; }
+    .tag:not(body).is-delete:hover, .tag:not(body).is-delete:focus {
+      background-color: #e8e8e8; }
+    .tag:not(body).is-delete:active {
+      background-color: #dbdbdb; }
+  .tag:not(body).is-rounded {
+    border-radius: 9999px; }
+
+a.tag:hover {
+  text-decoration: underline; }
+
 .container {
   flex-grow: 1;
   margin: 0 auto;

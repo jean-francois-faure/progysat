@@ -4,59 +4,24 @@
 <div class="section has-background-secondary-light py-4">
   <div class="container">
     <div class="columns mt-1">
-      <div class="column is-4 i-am-profiles">
-        <h3 class="title is-4">{% trans "Les ressources qui m'intéressent" %}</h3>
-        <div class="tag-holder">
-          <button v-for="type in resourceTypes"
-                  :class="{'is-outlined': !selectedResourceTypes[type.slug]}"
-                  @click="toggleType(type.slug)"
-                  class="button is-rounded is-primary">
-            [[ type.name ]]
-          </button>
-          <button @click="resetTypes" class="button is-text is-rounded">{% trans "Toutes" %}</button>
-        </div>
-      </div>
-      <div class="column is-4">
+      <div class="column is-12">
         <h3 class="title is-4">{% trans "Les thématiques qui m'intéressent" %}</h3>
-        <div class="elements-holder">
-          <button v-for="thematic in thematics" class="button is-rounded"
-                  :class="'is-' + thematic.slug + ' ' + (selectedThematics[thematic.slug] ? '' : 'is-outlined')"
-                  @click="toggleThematic(thematic.slug)">
+        <div class="tags">
+          <button v-for="thematic in thematics" class="tag is-rounded is-link is-large"
+                  :class="selectedThematics[thematic.slug] ? '' : 'is-light'"
+                  @click="toggleThematic(thematic.slug)" style="cursor: pointer; border: none" tabindex="0">
             <span>[[ thematic.name ]]</span>
           </button>
-          <button @click="resetThematics" class="button is-text is-rounded">{% trans "Toutes" %}</button>
+          <button @click="resetThematics"
+                  class="button is-text is-rounded">{% trans "Toutes" %}</button>
         </div>
-        <h3 class="title is-4 mt-5 mb-2">{% trans "Recherche par mot-clé" %}</h3>
-        <input @input="updateFilters" v-model="searchInput" type="text" class="input"
-               placeholder="Exemple : parcelles agricoles">
+
       </div>
-      <div class="column is-4">
-        <h3 class="title is-4">{% trans "Les zones qui m'intéressent" %}</h3>
-        <div class="elements-holder">
-          <button v-for="zone in zones" class="button is-rounded is-secondary"
-                  :class="selectedZones[zone.code] ? '' : 'is-outlined'"
-                  @click="toggleZone(zone.code)">
-            <span class="icon" style="">
-              <img :src="zone.icon">
-            </span>
-            <span>[[ zone.name ]]</span>
-          </button>
-          <button class="button is-rounded is-secondary"
-                  :class="selectedZones[0] ? '' : 'is-outlined'"
-                  @click="toggleZone(0)">
-            <span class="icon" style="">
-              <img src="{% static 'img/zones/world.svg' %}">
-            </span>
-            <span>{% trans "Ressources globales" %}</span>
-          </button>
-          <button @click="resetZones" class="button is-text is-rounded">{% trans "Toutes" %}</button>
-        </div>
-        <h3 class="title is-4 mt-5 mb-2">{% trans "Ressources Progysat" %}</h3>
-        <label class="checkbox">
-          <input @change="updateFilters" v-model="isOnlyProgysat" type="checkbox">
-          {% trans "Afficher uniquement les ressources crées par Progysat" %}
-        </label>
-      </div>
+    </div>
+    <div>
+      <h3 class="title is-4 mt-5 mb-2">{% trans "Recherche par mot-clé" %}</h3>
+      <input @input="updateFilters" v-model="searchInput" type="text" class="input"
+             placeholder="Exemple : parcelles agricoles" style="max-width: 250px">
     </div>
   </div>
 </div>

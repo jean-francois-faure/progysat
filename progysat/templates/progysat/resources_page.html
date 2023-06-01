@@ -24,32 +24,9 @@
             {% trans "aucun résultat correspondant" %}
           </template>
         </p>
-        <div class="mb-6" style="display: flex; justify-content: center">
-          <div class="tabs is-toggle is-toggle-rounded">
-            <ul>
-              <li :class="isMapView ? '' : 'is-active'" @click="isMapView = false">
-                <a>
-                <span class="icon is-small"
-                      style="line-height: 0">{% include "components/icon.html" with name="list-check" size="16" %}</span>
-                  <span>{% trans "Voir la liste" %}</span>
-                </a>
-              </li>
-              <li :class="isMapView ? 'is-active' : ''" @click="enableMapView()">
-                <a>
-                <span class="icon is-small" style="line-height: 0">
-                  {% include "components/icon.html" with name="earth" size="16" %}
-                </span>
-                  <span>{% trans "Voir sur la carte" %}</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
       </div>
 
       {% include "elements/resources_page/resources_list_view.html" %}
-
-      {% include "elements/resources_page/resources_map_view.html" %}
 
     </div>
   </div>

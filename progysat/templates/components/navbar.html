@@ -68,7 +68,7 @@
                     Thématiques
                   </a>
                   <div class="navbar-dropdown">
-                    {% for thematic in thematics %}
+                    {% for thematic in all_thematics %}
                       <a class="navbar-item {% if thematic.slug in request.path %} active {% endif %}"
                          href="{{ thematic.link }}">
                         {{ thematic.name }}

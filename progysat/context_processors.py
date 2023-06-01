@@ -115,5 +115,5 @@ def language(_):
 
 def thematics(_):
     return {
-        "thematics": Thematic.objects.all(),
+        "all_thematics": Thematic.objects.all(),
     }
