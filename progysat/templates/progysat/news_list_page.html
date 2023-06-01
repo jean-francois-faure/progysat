@@ -12,40 +12,26 @@
   </div>
   <div>
     <div id="app">
-      <div class="section has-background-info-light mt-6">
-        <div class="container">
-          <h2 class="title is-5">{% trans "Filtrer les actualités" %}</h2>
-          <div class="filter-holder">
-            <button @click="selectAllNews" class="button is-primary is-rounded"
-                    :class="isAllNews ? '' : 'has-background-white is-outlined'">
-              {% trans "Toutes les actualités" %}
-            </button>
-
-            <button class="button is-rounded is-primary"
-                    :class="selectedTypes[type.slug] ? '' : 'has-background-white is-outlined'"
-                    @click="toggleType(type.slug)"
-                    v-for="type in types">
-              [[ type.name ]]
-            </button>
-          </div>
-        </div>
-      </div>
-
       <div class="section container px-0">
         <div class="card-holder" style="align-items: flex-start">
-          <div v-if="!filteredNews.length" class="is-size-4">
-            {% trans "Aucune actualité correspondante" %}
-          </div>
-          <template v-for="news in filteredNews" :key="news.id">
-            <a :href="[[ news.link ]]">
+          {% if not news_list %}
+            <div class="is-size-4">
+              {% trans "Aucune actualité publiée" %}
+            </div>
+          {% else %}
+
+          {% for news in news_list %}
+            <a href="{{ news.link }}">
               <div class="card news-card footer-at-bottom">
                 <div class="card-image">
-                  <img :src="news.image_link">
+                  <img src="{{ news.image_link }}">
                 </div>
                 <div class="card-content pb-0">
-                  <h2 class="title is-4 mb-0">[[ news.name ]]</h2>
-                  <p class="is-size-7">[[ news.publication_date ]]</p>
-                  <p class="mt-4" v-html="news.introduction"></p>
+                  <h2 class="title is-4 mb-0">{{ news.name }}</h2>
+                  <p class="is-size-7">{{ news.publication_date }} </p>
+                  <p class="mt-4">
+                    {{ news.introduction|safe }}
+                  </p>
                 </div>
 
                 <div class="card-footer pt-0" style="flex-direction: column; padding: 24px; border: none;">
@@ -57,7 +43,10 @@
                 </div>
               </div>
             </a>
-          </template>
+          {% endfor %}
+
+
+          {% endif %}
         </div>
       </div>
     </div>
@@ -65,95 +54,8 @@
   </div>
 {% endblock %}
 
-{% block extra_js %}
-  <script>
-      var newsList = JSON.parse('{{ news_list | escapejs }}');
-      var types = JSON.parse('{{ types | escapejs }}');
-      var selectedTypes = {};
-      types.forEach(function (type) {
-          selectedTypes[type.slug] = false
-      });
-
-      function identity(value) {
-          return value
-      }
-
-      console.log("### newsList", newsList);
-      Vue.createApp({
-          delimiters: ['[[', ']]'],
-          data() {
-              return {
-                  filteredNews: newsList,
-                  isAllNews: true,
-                  newsList: newsList,
-                  selectedTypes: selectedTypes,
-                  types: types,
-              }
-          },
-          methods: {
-              selectAllNews() {
-                  this.types.forEach(type => {
-                      this.selectedTypes[type.slug] = false;
-                  });
-                  this.updateFiltered();
-              },
-              toggleType(type) {
-                  console.log("### toggle", type, this.selectedTypes);
-                  this.selectedTypes[type] = !this.selectedTypes[type];
-                  console.log("### toggled", this.selectedTypes);
-                  this.updateFiltered();
-              },
-              updateFiltered() {
-                  var selected = Object.values(this.selectedTypes);
-                  console.log("### update filtered", this.selectedTypes, selected);
-                  if (!selected.some(identity) || selected.every(identity)) {
-                      // none or all are selected
-                      this.isAllNews = true;
-                      this.filteredNews = this.newsList;
-                      return;
-                  }
-                  this.isAllNews = false;
-                  var filtered = [];
-                  for (var news of newsList) {
-                      var isSelected = false;
-                      for (var type of news.types) {
-                          if (this.selectedTypes[type]) {
-                              isSelected = true;
-                              break;
-                          }
-                      }
-                      if (isSelected) {
-                          filtered.push(news);
-                      }
-                  }
-                  console.log("### update filtered", filtered);
-                  this.filteredNews = filtered;
-              }
-          },
-          mounted() {
-
-          },
-      }).mount('#app')
-  </script>
-{% endblock extra_js %}
-
 {% block extra_css %}
   <style>
-      .filter-holder {
-          margin-left: -15px;
-          display: flex;
-          flex-wrap: wrap;
-      }
-
-      .filter-holder > button {
-          margin-left: 15px;
-      }
-
-      .filter-holder .button.is-outlined:hover {
-          background: transparent !important;
-          color: #324176 !important;
-      }
-
       .button.has-background-white:focus {
           color: #324176 !important;
       }

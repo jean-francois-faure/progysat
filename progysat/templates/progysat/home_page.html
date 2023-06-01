@@ -8,7 +8,7 @@
 {% block body_class %}template-homepage{% endblock %}
 
 {% block content %}
-  <div class="container">
+  <div class="container mb-6">
     <div class="section pt-0 pb-4">
         <img src="{% static 'img/earth.jpg' %}" alt="" style="width: 100%">
     </div>
@@ -27,21 +27,5 @@
       </div>
     </div>
 
-  </div>
-
-  <div class="section container">
-    <div style="margin: auto">
-      <h2 class="title is-3 has-text-centered">
-        {{ page.specific.resources_block_title|richtext }}
-      </h2>
-    </div>
-    <div style="max-width: 500px; margin: auto">
-      <p class="has-text-centered mt-5">
-        {{ page.specific.resources_block_explication|richtext }}
-      </p>
-      <div class="has-text-centered mt-5">
-        <a href="{{ resources_link }}" class="button is-medium is-secondary">{% trans "Toutes les ressources" %}</a>
-      </div>
-    </div>
   </div>
 {% endblock content %}
