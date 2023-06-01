@@ -36,9 +36,7 @@ class ThematicsListPage(RoutablePageMixin, Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context["thematics"] = [
-            thematic.to_dict() for thematic in Thematic.objects.all()
-        ]
+        context["thematics"] = Thematic.objects.all()
 
         return context
 
