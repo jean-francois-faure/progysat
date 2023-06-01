@@ -77,7 +77,6 @@ class News(TranslatableMixin, index.Indexed, TimeStampedModel, FreeBodyField):
         FieldPanel("introduction"),
         FieldPanel("is_progysat"),
         FieldPanel("body"),
-        FieldPanel("types", widget=forms.CheckboxSelectMultiple),
         FieldPanel("is_global"),
         FieldPanel("zones", widget=forms.CheckboxSelectMultiple),
         FieldPanel("thematics", widget=forms.CheckboxSelectMultiple),
