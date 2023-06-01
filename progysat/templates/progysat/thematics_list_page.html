@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load main_tags %}
+{% load i18n %}
+
+{% block content %}
+  <div class="container">
+    {% include "components/breadcrumbs.html" %}
+    <h1 class="title is-1">{{ page.title }}</h1>
+  </div>
+  <div>
+    <div id="app">
+      <div class="section container px-0">
+        <div class="card-holder" style="align-items: flex-start">
+          {% for thematic in thematic %}
+            <a href="{{ thematic.link }}">
+              <div class="card news-card footer-at-bottom">
+                <div class="card-image">
+                  <img src="{{ thematic.image_link }}">
+                </div>
+                <div class="card-content pb-0">
+                  <h2 class="title is-4 mb-0">{{ thematic.name }}</h2>
+                </div>
+
+                <div class="card-footer pt-0" style="flex-direction: column; padding: 24px; border: none;">
+                  <div class="mt-4">
+                    <button class="button is-secondary is-medium">
+                      {% trans "Voir les détails" %}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block extra_css %}
+  <style>
+      .filter-holder {
+          margin-left: -15px;
+          display: flex;
+          flex-wrap: wrap;
+      }
+
+      .filter-holder > button {
+          margin-left: 15px;
+      }
+
+      .filter-holder .button.is-outlined:hover {
+          background: transparent !important;
+          color: #324176 !important;
+      }
+
+      .button.has-background-white:focus {
+          color: #324176 !important;
+      }
+
+      .news-card {
+          max-width: 432px;
+      }
+  </style>
+{% endblock %}

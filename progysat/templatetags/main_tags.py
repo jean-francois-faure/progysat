@@ -22,6 +22,24 @@ def news_page_url(news=None):
 
 
 @register.simple_tag()
+def thematics_page_url(thematic=None):
+    from progysat.models.thematics_list_page import ThematicsListPage
+
+    try:
+        thematic_list_page = ThematicsListPage.for_current_language()
+    except ThematicsListPage.DoesNotExist:
+        raise ThematicsListPage.DoesNotExist("A ThematicsListPage must be created")
+
+    if thematic is None:
+        return thematic_list_page.url
+    url = thematic_list_page.url + thematic_list_page.reverse_subpage(
+        "thematic",
+        args=(str(thematic.slug),),
+    )
+    return url
+
+
+@register.simple_tag()
 def image_id_from_url(image_url):
     hash_ = hashlib.md5()
     hash_.update(image_url.encode("utf8"))

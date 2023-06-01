@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load main_tags %}
+{% load i18n %}
+
+{% block content %}
+  <div class="has-background-info-light">
+    <div class="container py-6">
+      {% include "components/breadcrumbs.html" %}
+
+      <div class="card">
+        {% if thematic.image %}
+          <div class="card-image">
+            <figure class="image">
+              <img src="{{ thematic.image.url }}" alt="">
+            </figure>
+          </div>
+        {% endif %}
+        <div class="card-content">
+          <h1 class="title is-1">{{ thematic.name }}</h1>
+          <div class="content">
+            {{ thematic.description|safe }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

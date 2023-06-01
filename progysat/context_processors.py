@@ -5,7 +5,7 @@ from django.conf import settings
 from django.utils import translation
 from wagtail.templatetags.wagtailcore_tags import pageurl
 
-from progysat.models import ResourcesPage, NewsListPage
+from progysat.models import ResourcesPage, NewsListPage, Thematic
 from progysat.models.models import FooterDetail
 
 DEFAULT_LANGUAGE = settings.LANGUAGES[0][0]
@@ -110,4 +110,10 @@ def language(_):
     return {
         "language_code": translation.get_language(),
         "language_str": str(Locale.objects.get(language_code="fr")),
+    }
+
+
+def thematics(_):
+    return {
+        "thematics": Thematic.objects.all(),
     }

@@ -83,6 +83,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "progysat.context_processors.general_context",
                 "progysat.context_processors.language",
+                "progysat.context_processors.thematics",
                 "wagtail.contrib.settings.context_processors.settings",
             ],
         },

@@ -8,6 +8,9 @@
     {% if news %}
       <li><a href="{% news_page_url %}">{% trans "Actualités" %}</a></li>
       <li class="is-active"><a href="{% news_page_url news %}">{{ news.name }}</a></li>
+    {% elif thematic %}
+      <li><a href="{% thematics_page_url %}">{% trans "Thématiques" %}</a></li>
+      <li class="is-active"><a href="{% thematics_page_url thematic %}">{{ thematic.name }}</a></li>
     {% elif page %}
       <li class="is-active"><a href="{% pageurl page %}">{{ page.title }}</a></li>
     {% endif %}

@@ -10,7 +10,6 @@ from wagtail_localize.modeladmin.options import TranslatableModelAdmin
 
 from progysat.models.models import (
     Thematic,
-    ActualityType,
     ResourceType,
     GeoZone,
     FooterDetail,
@@ -66,19 +65,11 @@ class NewsModelAdmin(TranslatableModelAdmin):
     search_fields = ("name",)
 
 
-class ActualityTypeModelAdmin(ModelAdmin):
-    model = ActualityType
-    menu_label = "Types d'actualité"
-    menu_icon = "tag"
-    add_to_settings_menu = False
-    search_fields = ("name",)
-
-
 class ActualityAdminGroup(ModelAdminGroup):
     menu_label = "Actualités"
     menu_order = 202
     menu_icon = "date"
-    items = (NewsModelAdmin, ActualityTypeModelAdmin)
+    items = (NewsModelAdmin,)
 
 
 class GeoZoneModelAdmin(ModelAdmin):

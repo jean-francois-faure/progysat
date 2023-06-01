@@ -29,7 +29,7 @@
             {% if child_page.show_in_menus %}
               {% if child_page.get_children %}
                 <div class="navbar-item has-dropdown is-hoverable">
-                  <a class="navbar-link">
+                  <a class="navbar-link" href="{{ child_page.url }}">
                     {{ child_page.title }}
                   </a>
                   <div class="navbar-dropdown">
@@ -58,6 +58,27 @@
               {% endif %}
             {% endif %}
           {% endfor %}
+
+          {% thematics_page_url as thematics_page_index_url %}
+
+          {% if thematics_page_index_url %}
+            <div class="navbar-item">
+              <div class="navbar-item has-dropdown is-hoverable">
+                  <a class="navbar-link" href="{{ thematics_page_index_url }}">
+                    Thématiques
+                  </a>
+                  <div class="navbar-dropdown">
+                    {% for thematic in thematics %}
+                      <a class="navbar-item {% if thematic.slug in request.path %} active {% endif %}"
+                         href="{{ thematic.link }}">
+                        {{ thematic.name }}
+                      </a>
+                    {% endfor %}
+                  </div>
+                </div>
+            </div>
+          {% endif %}
+
 
           <div class="navbar-item">
             <div class="buttons">

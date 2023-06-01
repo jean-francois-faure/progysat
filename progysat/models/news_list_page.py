@@ -1,13 +1,11 @@
 from typing import List
 
-from django.forms import model_to_dict
 from django.http import Http404
 from django.utils import translation
 from rest_framework.utils import json
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.models import Page
 
-from progysat.models.models import ActualityType
 from progysat.models.news import News
 
 
@@ -37,7 +35,7 @@ class NewsListPage(RoutablePageMixin, Page):
             context_overrides={
                 "news": news,
                 # There is only one NewsListPage if there is only one language
-                "news_page": NewsListPage.objects.first(),
+                "news_page": NewsListPage.for_current_language(),
                 "modal_images": modal_images,
             },
             template="progysat/news_page.html",
@@ -47,9 +45,6 @@ class NewsListPage(RoutablePageMixin, Page):
         context = super().get_context(request, *args, **kwargs)
         current_language = translation.get_language()
         context["has_vue"] = True
-        context["types"] = json.dumps(
-            [model_to_dict(type_) for type_ in ActualityType.objects.all()]
-        )
         context["news_list"] = json.dumps(
             [
                 news.to_dict()
