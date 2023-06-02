@@ -11,30 +11,6 @@
                 has-background-std
               {% endif %}">
       <div class="card-content">
-        <div class="is-flex" style="justify-content: space-between; font-size: 11px">
-          <div>
-            {% if main_thematic %}
-              {{ main_thematic.name }}
-            {% else %}
-              <span>
-                {% if resource.thematics.count %}
-                  {% trans "Plusieurs thématiques" %}
-                {% else %}
-                  {% trans "Sans thématique" %}
-                {% endif %}
-              </span>
-            {% endif %}
-          </div>
-          {% if resource.zones.first %}
-            <div>
-              <span class="icon">
-                <img src="{% static 'img/zones' %}/{{ resource.zones.first.slug }}.svg">
-              </span>
-              {{ resource.zones.first.name }}
-            </div>
-          {% endif %}
-        </div>
-
         <div>
           <span class="has-text-weight-bold">{{ resource.resource_type }}</span>
         </div>

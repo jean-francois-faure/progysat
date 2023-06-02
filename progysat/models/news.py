@@ -10,7 +10,7 @@ from wagtail.images.views.serve import generate_image_url
 from wagtail.models import TranslatableMixin
 from wagtail.search import index
 
-from progysat.models.models import Thematic, GeoZone
+from progysat.models.models import Thematic
 from progysat.models.resource import Resource
 from progysat.models.utils import TimeStampedModel, FreeBodyField
 from progysat.templatetags.main_tags import news_page_url
@@ -45,15 +45,6 @@ class News(TranslatableMixin, index.Indexed, TimeStampedModel, FreeBodyField):
         help_text="La première actualité mise en avant sur la page d'accueil est la dernière actualité Progysat",
         default=False,
     )
-    is_global = models.BooleanField(
-        verbose_name="Concerne toutes les zones", default=False
-    )
-    zones = models.ManyToManyField(
-        GeoZone,
-        blank=True,
-        verbose_name="Zones géographique liées",
-        help_text="Ce champ n'est pas encore utilisé",
-    )
     thematics = models.ManyToManyField(
         Thematic,
         blank=True,
@@ -77,8 +68,6 @@ class News(TranslatableMixin, index.Indexed, TimeStampedModel, FreeBodyField):
         FieldPanel("introduction"),
         FieldPanel("is_progysat"),
         FieldPanel("body"),
-        FieldPanel("is_global"),
-        FieldPanel("zones", widget=forms.CheckboxSelectMultiple),
         FieldPanel("thematics", widget=forms.CheckboxSelectMultiple),
         FieldPanel("resources", widget=forms.SelectMultiple),
     ]

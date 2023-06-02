@@ -3,10 +3,8 @@ from .home_page import HomePage  # noqa: F401
 from .models import (  # noqa: F401
     ContentPage,
     Thematic,
-    GeoZone,
     StructureSettings,
     AnalyticsScriptSetting,
-    ResourceType,
 )
 from .news import News  # noqa: F401
 from .resource import Resource  # noqa: F401

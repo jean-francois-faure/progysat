@@ -9,7 +9,8 @@
         <div class="tags">
           <button v-for="thematic in thematics" class="tag is-rounded is-link is-large"
                   :class="selectedThematics[thematic.slug] ? '' : 'is-light'"
-                  @click="toggleThematic(thematic.slug)" style="cursor: pointer; border: none" tabindex="0">
+                  @click="toggleThematic(thematic.slug)" style="cursor: pointer; border: 1px solid lightgray" tabindex="0"
+                  :style="selectedThematics[thematic.slug] ? '' : ('background: #' + thematic.color)">
             <span>[[ thematic.name ]]</span>
           </button>
           <button @click="resetThematics"

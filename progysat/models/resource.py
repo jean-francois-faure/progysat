@@ -8,19 +8,14 @@ from wagtail.fields import RichTextField
 from wagtail.models import TranslatableMixin
 from wagtail.search import index
 
-from progysat.models.models import Thematic, ResourceType, GeoZone
+from progysat.models.models import Thematic
 from progysat.models.utils import (
     TimeStampedModel,
     SIMPLE_RICH_TEXT_FIELD_FEATURE,
-    FreeBodyField,
 )
 
 
-class Resource(TranslatableMixin, index.Indexed, TimeStampedModel, FreeBodyField):
-    zones = models.ManyToManyField(GeoZone, verbose_name="Zones", blank=True)
-    is_global = models.BooleanField(
-        verbose_name="Concerne toutes les zones", default=False
-    )
+class Resource(TranslatableMixin, index.Indexed, TimeStampedModel):
     name = models.CharField(verbose_name="Nom", max_length=100)
     slug = models.SlugField(
         max_length=100,
@@ -62,7 +57,6 @@ class Resource(TranslatableMixin, index.Indexed, TimeStampedModel, FreeBodyField
         verbose_name="Description courte",
         max_length=1000,
     )
-    types = models.ManyToManyField(ResourceType, blank=True)
 
     panels = [
         FieldPanel("name"),
@@ -71,12 +65,8 @@ class Resource(TranslatableMixin, index.Indexed, TimeStampedModel, FreeBodyField
         FieldPanel("source_name"),
         FieldPanel("source_link"),
         FieldPanel("file"),
-        FieldPanel("body"),
-        FieldPanel("types", widget=forms.CheckboxSelectMultiple),
         FieldPanel("thematics", widget=forms.CheckboxSelectMultiple),
         FieldPanel("geo_dev_creation"),
-        FieldPanel("is_global"),
-        FieldPanel("zones", widget=forms.CheckboxSelectMultiple),
     ]
 
     def to_dict(self):
@@ -84,7 +74,6 @@ class Resource(TranslatableMixin, index.Indexed, TimeStampedModel, FreeBodyField
             self,
             fields=[
                 "id",
-                "is_global",
                 "name",
                 "slug",
                 "thematics",
@@ -106,19 +95,12 @@ class Resource(TranslatableMixin, index.Indexed, TimeStampedModel, FreeBodyField
             to_return["thematic"] = self.main_thematic.slug
         else:
             to_return["thematic"] = "multiple"
-        zones = {zone.code for zone in self.zones.all()}
-        if len(zones) == 1:
-            to_return["zone"] = next(iter(zones))
-        else:
-            to_return["zone"] = None
-        to_return["zones"] = [zone.code for zone in self.zones.all()]
         to_return["link"] = self.link
         if self.file:
             to_return["download_name"] = self.file.name
         else:
             to_return["download_name"] = None
         to_return["is_download"] = self.is_download
-        to_return["types"] = [type_.slug for type_ in self.types.all()]
         return to_return
 
     def __str__(self):

@@ -10,8 +10,6 @@ from wagtail_localize.modeladmin.options import TranslatableModelAdmin
 
 from progysat.models.models import (
     Thematic,
-    ResourceType,
-    GeoZone,
     FooterDetail,
 )
 from progysat.models.news import News
@@ -42,19 +40,11 @@ class ThematicModelAdmin(ModelAdmin):
     search_fields = ("name",)
 
 
-class ResourceTypeModelAdmin(ModelAdmin):
-    model = ResourceType
-    menu_label = "Types de ressource"
-    menu_icon = "tag"
-    add_to_settings_menu = False
-    search_fields = ("name",)
-
-
 class RessourcesAdminGroup(ModelAdminGroup):
     menu_label = "Ressources"
     menu_order = 201
     menu_icon = "doc-full"
-    items = (RessourceModelAdmin, ThematicModelAdmin, ResourceTypeModelAdmin)
+    items = (RessourceModelAdmin, ThematicModelAdmin)
 
 
 class NewsModelAdmin(TranslatableModelAdmin):
@@ -72,14 +62,6 @@ class ActualityAdminGroup(ModelAdminGroup):
     items = (NewsModelAdmin,)
 
 
-class GeoZoneModelAdmin(ModelAdmin):
-    model = GeoZone
-    menu_label = "Zones géographique"
-    menu_icon = "site"
-    add_to_settings_menu = False
-    search_fields = ("name",)
-
-
 class FooterDetailAdmin(ModelAdmin):
     model = FooterDetail
     menu_label = "Sponsors et liens"
@@ -89,5 +71,4 @@ class FooterDetailAdmin(ModelAdmin):
 
 modeladmin_register(RessourcesAdminGroup)
 modeladmin_register(ActualityAdminGroup)
-modeladmin_register(GeoZoneModelAdmin)
 modeladmin_register(FooterDetailAdmin)

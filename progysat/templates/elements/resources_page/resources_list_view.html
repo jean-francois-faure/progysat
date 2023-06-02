@@ -4,8 +4,8 @@
 <div class="card-holder">
   <template v-for="resource in filteredResources"
             :key="resource.slug">
-    <div class="card resource-card footer-at-bottom"
-         :class="(resource.thematic && resource.thematic != 'multiple') ? 'has-background-' + resource.thematic + '-light' : 'has-background-std'">
+    <div class="card resource-card footer-at-bottom has-background-std"
+         :style="(resource.thematic && resource.thematic != 'multiple') ? 'background: #' + thematicBySlug[resource.thematic].color : ''">
       <div class="card-content">
         <a :href="[[ resource.link ]]"
            :download="resource.is_download ? resource.download_name : null"
@@ -13,26 +13,14 @@
           <div class="is-flex" style="justify-content: space-between; font-size: 11px">
             <div>
               <template v-if="resource.thematic && resource.thematic != 'multiple'">
-            <span class="icon">
-              <img :src="thematicBySlug[resource.thematic].icon">
-            </span>
-                [[ thematicBySlug[resource.thematic].name ]]
-              </template>
-              <template v-else>
-            <span>
-              <span class="icon">
-                <img v-if="resource.thematics.length < 2" :src="'{% static 'img/thematics/unspecified.svg' %}'">
+                  [[ thematicBySlug[resource.thematic].name ]]
+                </template>
+                <template v-else>
+              <span>
+                <template v-if="resource.thematics.length">{% trans "Plusieurs thématiques" %}</template>
+                <template v-else>{% trans "Sans thématique" %}</template>
               </span>
-              <template v-if="resource.thematics.length">{% trans "Plusieurs thématiques" %}</template>
-              <template v-else>{% trans "Sans thématique" %}</template>
-            </span>
               </template>
-            </div>
-            <div v-if="resource.zone">
-              <span class="icon">
-                <img :src="resource.zone.icon">
-              </span>
-              [[ zoneBySlug[resource.zone].name ]]
             </div>
           </div>
         </a>
@@ -40,21 +28,7 @@
         <a :href="[[ resource.link ]]"
            :download="resource.is_download ? resource.download_name : null"
            :target="resource.is_download ? '_self' : '_blank'">
-          <div class="my-5 has-text-centered">
-            <img v-if="resource.thematic && resource.thematic != 'multiple'"
-                 :src="thematicBySlug[resource.thematic].icon"
-                 style="width: 107px ; height: 107px; opacity: 0.5">
-            <template v-else>
-              <img v-if="resource.thematics.length >= 2" :src="'{% static 'img/thematics/multiple.svg' %}'"
-                   style="width: 107px ; height: 107px; opacity: 0.5">
-              <img v-else :src="'{% static 'img/thematics/unspecified_color.svg' %}'"
-                   style="width: 107px ; height: 107px; opacity: 0.5">
-            </template>
-          </div>
-          <div>
-            <span class="has-text-weight-bold">[[ resource.resource_type ]]</span>
-          </div>
-          <h3 class="title is-5">[[ resource.name ]]</h3>
+          <h3 class="title is-5 mt-3">[[ resource.name ]]</h3>
         </a>
         <p v-if="resource.showFullDescription"
            style="word-break: break-word"

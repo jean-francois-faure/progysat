@@ -43,12 +43,6 @@ class ContentPage(Page, FreeBodyField):
     ]
 
 
-class ResourceType(MultiLanguageTag):
-    class Meta:
-        verbose_name = "Type de ressource"
-        verbose_name_plural = "Types de ressource"
-
-
 class Thematic(MultiLanguageTag):
     class Meta:
         verbose_name = "Thématique"
@@ -70,6 +64,11 @@ class Thematic(MultiLanguageTag):
             blank=True,
             null=True,
         )
+    color = models.CharField(
+        verbose_name="code hex de la couleur (ex 000000 pour du blanc)",
+        default="",
+        max_length=6,
+    )
 
     @property
     def description(self):
@@ -88,6 +87,7 @@ class Thematic(MultiLanguageTag):
             "slug": self.slug,
             "image": self.image and self.image.url,
             "image_link": image_link,
+            "color": self.color,
         }
 
         return to_return
@@ -95,35 +95,6 @@ class Thematic(MultiLanguageTag):
     @property
     def link(self):
         return thematics_page_url(thematic=self)
-
-
-class GeoZone(MultiLanguageTag):
-    class Meta:
-        verbose_name = "zone géographique"
-        verbose_name_plural = "zones géographiques"
-
-    code = models.CharField(verbose_name="code (ne pas changer !)", max_length=20)
-    latitude = models.FloatField(verbose_name="latitude du centre")
-    longitude = models.FloatField(verbose_name="longitude du centre")
-
-    icon = models.ForeignKey(Document, on_delete=models.SET_NULL, null=True, blank=True)
-
-    def __str__(self):
-        return self.name
-
-    def to_dict(self):
-        to_return = {
-            "name": self.name,
-            "code": self.code,
-            "latitude": self.latitude,
-            "longitude": self.longitude,
-        }
-        if self.icon:
-            to_return["icon"] = self.icon.url
-        else:
-            to_return["icon"] = f"/static/img/zones/{self.code}.svg"
-
-        return to_return
 
 
 @register_setting
