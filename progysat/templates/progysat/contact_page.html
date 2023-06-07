@@ -66,15 +66,13 @@
                   <div class="control">
                     <div class="select">
                       <select name="subject" id="subject">
+                        <option value="{% trans "Demande d'information sur PROGYSAT" %}">{% trans "Demande d'information sur PROGYSAT" %}</option>
                         <option value="{% trans "Proposition de collaboration" %}">{% trans "Proposition de collaboration" %}</option>
-                        <option value="{% trans "Partage d'actualités" %}">{% trans "Partage d'actualités" %}</option>
-                        <option value="{% trans "Partage de ressources" %}">{% trans "Partage de ressources" %}</option>
-                        <option value="{% trans "Adhésion au réseau" %}">{% trans "Adhésion au réseau" %}</option>
-                        <option value="Demande d'informations sur l'ART Progysat">{% trans "Demande d'informations sur l'ART Progysat" %}
-                        </option>
+                        <option value="{% trans "Partage d'Actualités" %}">{% trans "Partage d'Actualités" %}</option>
+                        <option value="Partage de Ressource">{% trans "Partage de Ressource" %}</option>
                         <option value="{% trans 'Avis sur ce site web' %}" {% if review_selected %}selected{% endif %}>{% trans 'Avis sur ce site web' %}
-                        </option>
                         <option value="Autre">{% trans "Autre" %}</option>
+                        </option>
                       </select>
                     </div>
                   </div>
