@@ -15,7 +15,7 @@ def paragraph_block(additional_field, required):
         blocks.RichTextBlock(
             label="Contenu",
             features=SIMPLE_RICH_TEXT_FIELD_FEATURE
-            + ["h3", "h4", "ol", "ul"]
+            + ["h3", "h4", "ol", "ul", "document-link"]
             + additional_field,
             required=required,
         ),
