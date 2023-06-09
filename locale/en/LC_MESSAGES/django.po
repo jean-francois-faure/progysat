@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-01 16:17+0200\n"
+"POT-Creation-Date: 2023-06-09 10:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,73 +72,49 @@ msgstr "PDF file"
 msgid "Télécharger le PDF"
 msgstr "Download PDF"
 
-#: progysat/templates/components/resource_card.html:21
-#: progysat/templates/elements/resources_page/resources_list_view.html:26
-msgid "Plusieurs thématiques"
-msgstr "Multiple thematics"
-
-#: progysat/templates/components/resource_card.html:23
-#: progysat/templates/elements/resources_page/resources_list_view.html:27
-msgid "Sans thématique"
-msgstr "No thematic"
-
-#: progysat/templates/components/resource_card.html:62
-#: progysat/templates/elements/resources_page/resources_list_view.html:84
+#: progysat/templates/components/resource_card.html:38
+#: progysat/templates/elements/resources_page/resources_list_view.html:58
 msgid "Ressource Progysat"
 msgstr "Progysat resource"
 
-#: progysat/templates/components/resource_card.html:71
-#: progysat/templates/elements/resources_page/resources_list_view.html:95
+#: progysat/templates/components/resource_card.html:47
+#: progysat/templates/elements/resources_page/resources_list_view.html:69
 msgid "Accéder à la ressource"
 msgstr "Go to resource"
 
 #: progysat/templates/elements/resources_page/filters.html:8
-msgid "Les ressources qui m'intéressent"
-msgstr "Resource corresponding to my profile"
-
-#: progysat/templates/elements/resources_page/filters.html:16
-#: progysat/templates/elements/resources_page/filters.html:27
-#: progysat/templates/elements/resources_page/filters.html:52
-msgid "Toutes"
-msgstr "All"
-
-#: progysat/templates/elements/resources_page/filters.html:20
 msgid "Les thématiques qui m'intéressent"
 msgstr "Thematics "
 
-#: progysat/templates/elements/resources_page/filters.html:29
+#: progysat/templates/elements/resources_page/filters.html:17
+msgid "Toutes"
+msgstr "All"
+
+#: progysat/templates/elements/resources_page/filters.html:23
 msgid "Recherche par mot-clé"
 msgstr ""
 
-#: progysat/templates/elements/resources_page/filters.html:34
-msgid "Les zones qui m'intéressent"
-msgstr ""
+#: progysat/templates/elements/resources_page/resources_list_view.html:20
+msgid "Plusieurs thématiques"
+msgstr "Multiple thematics"
 
-#: progysat/templates/elements/resources_page/filters.html:50
-msgid "Ressources globales"
-msgstr ""
+#: progysat/templates/elements/resources_page/resources_list_view.html:21
+msgid "Sans thématique"
+msgstr "No thematic"
 
-#: progysat/templates/elements/resources_page/filters.html:54
-msgid "Ressources Progysat"
-msgstr ""
-
-#: progysat/templates/elements/resources_page/filters.html:57
-msgid "Afficher uniquement les ressources crées par Progysat"
-msgstr ""
-
-#: progysat/templates/elements/resources_page/resources_list_view.html:68
+#: progysat/templates/elements/resources_page/resources_list_view.html:42
 msgid "afficher"
 msgstr ""
 
-#: progysat/templates/elements/resources_page/resources_list_view.html:68
+#: progysat/templates/elements/resources_page/resources_list_view.html:42
 msgid "moins"
 msgstr ""
 
-#: progysat/templates/elements/resources_page/resources_list_view.html:68
+#: progysat/templates/elements/resources_page/resources_list_view.html:42
 msgid "plus"
 msgstr ""
 
-#: progysat/templates/elements/resources_page/resources_list_view.html:77
+#: progysat/templates/elements/resources_page/resources_list_view.html:51
 msgid "Source"
 msgstr ""
 
@@ -171,38 +147,38 @@ msgid "Quelle est la raison de votre prise de contact ?"
 msgstr ""
 
 #: progysat/templates/progysat/contact_page.html:69
-msgid "Proposition de collaboration"
+msgid "Demande d'information sur PROGYSAT"
 msgstr ""
 
 #: progysat/templates/progysat/contact_page.html:70
-msgid "Partage d'actualités"
+msgid "Proposition de collaboration"
 msgstr ""
 
 #: progysat/templates/progysat/contact_page.html:71
-msgid "Partage de ressources"
-msgstr ""
+#, fuzzy
+#| msgid "Actualités"
+msgid "Partage d'Actualités"
+msgstr "News"
 
 #: progysat/templates/progysat/contact_page.html:72
-msgid "Adhésion au réseau"
-msgstr ""
+#, fuzzy
+#| msgid "ressources"
+msgid "Partage de Ressource"
+msgstr "resources"
 
 #: progysat/templates/progysat/contact_page.html:73
-msgid "Demande d'informations sur l'ART Progysat"
-msgstr ""
-
-#: progysat/templates/progysat/contact_page.html:75
 msgid "Avis sur ce site web"
 msgstr ""
 
-#: progysat/templates/progysat/contact_page.html:77
+#: progysat/templates/progysat/contact_page.html:74
 msgid "Autre"
 msgstr ""
 
-#: progysat/templates/progysat/contact_page.html:84
+#: progysat/templates/progysat/contact_page.html:82
 msgid "Message"
 msgstr ""
 
-#: progysat/templates/progysat/contact_page.html:94
+#: progysat/templates/progysat/contact_page.html:92
 msgid "J'autorise ce site à conserver mes données transmises via ce formulaire"
 msgstr ""
 
@@ -234,14 +210,9 @@ msgstr ""
 msgid "aucun résultat correspondant"
 msgstr ""
 
-#: progysat/templates/progysat/resources_page.html:34
-msgid "Voir la liste"
-msgstr ""
-
-#: progysat/templates/progysat/resources_page.html:42
-msgid "Voir sur la carte"
-msgstr ""
-
 #: progysat/templates/progysat/thematics_list_page.html:30
 msgid "Voir les détails"
 msgstr ""
+
+#~ msgid "Les ressources qui m'intéressent"
+#~ msgstr "Resource corresponding to my profile"
