@@ -21,7 +21,7 @@ msgstr ""
 #: progysat/templates/404.html:4 progysat/templates/404.html:10
 #: progysat/templates/404.html:13
 msgid "La page n'a pas été trouvée"
-msgstr "Page has not been find"
+msgstr "Page has not been found"
 
 #: progysat/templates/404.html:16
 msgid "Retour à l'accueil"
@@ -184,7 +184,7 @@ msgstr ""
 
 #: progysat/templates/progysat/home_page.html:26
 msgid "Toutes les actualités"
-msgstr ""
+msgstr "All news"
 
 #: progysat/templates/progysat/news_list_page.html:19
 msgid "Aucune actualité publiée"

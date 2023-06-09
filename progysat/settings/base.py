@@ -135,6 +135,8 @@ WAGTAIL_I18N_ENABLED = True
 
 USE_TZ = True
 
+LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
+
 # run makemigrations and migrate after updating this, since some columns
 # are based on language codes
 WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
