@@ -6,10 +6,6 @@
     justify-content: center;
 }
 
-.navbar.is-succinct .navbar-additional-logo {
-    display: none
-}
-
 .navbar.is-succinct .logo-holder {
     flex-direction: row;
     align-items: center;
