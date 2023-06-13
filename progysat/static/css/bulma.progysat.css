@@ -137,7 +137,7 @@
   width: 0.625em; }
 
 .title:not(:last-child),
-.subtitle:not(:last-child), .content:not(:last-child), .breadcrumb:not(:last-child), .tabs:not(:last-child) {
+.subtitle:not(:last-child), .content:not(:last-child), .notification:not(:last-child), .breadcrumb:not(:last-child), .tabs:not(:last-child) {
   margin-bottom: 1.5rem; }
 
 .modal-close {
@@ -4257,6 +4257,150 @@ a.tag:hover {
 
 .content.is-large {
   font-size: 1.5rem; }
+
+.notification {
+  background-color: whitesmoke;
+  border-radius: 4px;
+  position: relative;
+  padding: 1.25rem 2.5rem 1.25rem 1.5rem; }
+  .notification a:not(.button):not(.dropdown-item) {
+    color: currentColor;
+    text-decoration: underline; }
+  .notification strong {
+    color: currentColor; }
+  .notification code,
+  .notification pre {
+    background: white; }
+  .notification pre code {
+    background: transparent; }
+  .notification > .delete {
+    right: 0.5rem;
+    position: absolute;
+    top: 0.5rem; }
+  .notification .title,
+  .notification .subtitle,
+  .notification .content {
+    color: currentColor; }
+  .notification.is-white {
+    background-color: white;
+    color: #0a0a0a; }
+  .notification.is-black {
+    background-color: #0a0a0a;
+    color: white; }
+  .notification.is-light {
+    background-color: whitesmoke;
+    color: rgba(0, 0, 0, 0.7); }
+  .notification.is-dark {
+    background-color: #363636;
+    color: #fff; }
+  .notification.is-primary {
+    background-color: #324176;
+    color: #fff; }
+    .notification.is-primary.is-light {
+      background-color: #f1f2f9;
+      color: #5369b6; }
+  .notification.is-link {
+    background-color: #324176;
+    color: #fff; }
+    .notification.is-link.is-light {
+      background-color: #f1f2f9;
+      color: #5369b6; }
+  .notification.is-info {
+    background-color: #209CEE;
+    color: #fff; }
+    .notification.is-info.is-light {
+      background-color: #ecf7fe;
+      color: #0e72b4; }
+  .notification.is-success {
+    background-color: #48C78E;
+    color: #fff; }
+    .notification.is-success.is-light {
+      background-color: #effaf5;
+      color: #257953; }
+  .notification.is-warning {
+    background-color: #FFE08A;
+    color: rgba(0, 0, 0, 0.7); }
+    .notification.is-warning.is-light {
+      background-color: #fffaeb;
+      color: #946d00; }
+  .notification.is-danger {
+    background-color: #FF3860;
+    color: #fff; }
+    .notification.is-danger.is-light {
+      background-color: #ffebef;
+      color: #db002c; }
+  .notification.is-agriculture {
+    background-color: #9F6B04;
+    color: #fff; }
+    .notification.is-agriculture.is-light {
+      background-color: #fef8eb;
+      color: #e09706; }
+  .notification.is-floors {
+    background-color: #7A2906;
+    color: #fff; }
+    .notification.is-floors.is-light {
+      background-color: #fef1ec;
+      color: #f45c1b; }
+  .notification.is-biodiversity {
+    background-color: #3C7E07;
+    color: #fff; }
+    .notification.is-biodiversity.is-light {
+      background-color: #f4feec;
+      color: #6ade0c; }
+  .notification.is-water {
+    background-color: #0F7BC2;
+    color: #fff; }
+    .notification.is-water.is-light {
+      background-color: #ecf7fe;
+      color: #1087d5; }
+  .notification.is-risks {
+    background-color: #EA3576;
+    color: #fff; }
+    .notification.is-risks.is-light {
+      background-color: #fdedf2;
+      color: #cb1557; }
+  .notification.is-health {
+    background-color: #3748E1;
+    color: #fff; }
+    .notification.is-health.is-light {
+      background-color: #edeffc;
+      color: #2133d9; }
+  .notification.is-cities {
+    background-color: #693BB3;
+    color: #fff; }
+    .notification.is-cities.is-light {
+      background-color: #f4f0fa;
+      color: #713fc0; }
+  .notification.is-forest {
+    background-color: #058566;
+    color: #fff; }
+    .notification.is-forest.is-light {
+      background-color: #ebfefa;
+      color: #08ddaa; }
+  .notification.is-littoral {
+    background-color: #333399;
+    color: #fff; }
+    .notification.is-littoral.is-light {
+      background-color: #f0f0fa;
+      color: #4b4bc3; }
+  .notification.is-climat {
+    background-color: #fe0000;
+    color: #fff; }
+    .notification.is-climat.is-light {
+      background-color: #ffebeb;
+      color: #eb0000; }
+  .notification.is-mnt {
+    background-color: #7a1fa0;
+    color: #fff; }
+    .notification.is-mnt.is-light {
+      background-color: #f8eefc;
+      color: #a732d7; }
+  .notification.is-secondary {
+    background-color: #E56934;
+    color: #fff; }
+    .notification.is-secondary.is-light {
+      background-color: #fdf2ed;
+      color: #b54617; }
 
 /* Bulma Form */
 .input, .textarea, .select select {
