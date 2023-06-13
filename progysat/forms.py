@@ -15,4 +15,7 @@ class ContactForm(forms.ModelForm):
             "message",
         ]
 
-    agree = forms.BooleanField(required=True)
+    agree = forms.BooleanField(
+        required=True,
+        error_messages={"required": "Vous devez accepter les conditions d'utilisation"},
+    )

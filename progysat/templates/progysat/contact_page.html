@@ -25,9 +25,13 @@
           <div class="card">
             <div class="card-content">
               <h2 class="title is-2">{% trans "Formulaire de contact" %}</h2>
-              <p>{% trans "Les champs comprenant une astérisque (*) sont obligatoires." %}</p>
-
-              <form action="" method="post">
+              {% if validated %}
+                <div class="notification is-success">
+                  Les informations ont bien été envoyées à Progysat.
+                </div>
+              {% else %}
+                <p>{% trans "Les champs comprenant une astérisque (*) sont obligatoires." %}</p>
+                <form action="" method="post">
                 {% csrf_token %}
 
                 <div class="columns mt-5">
@@ -35,27 +39,40 @@
                     <div class="field">
                       <label for="firstname" class="label">{% trans "Prénom" %} *</label>
                       <div class="control">
-                        <input name="firstname" id="firstname" class="input" type="text" placeholder="Jean">
+                        <input name="firstname" id="firstname" class="input {% if form.errors.firstname %}is-danger{% endif %}" type="text" placeholder="Jean" value="{{ form.cleaned_data.firstname }}">
+                        {% if form.errors.firstname %}
+                          <p class="help is-danger">{% for error in form.errors.firstname %} {{ error }} {% endfor %}</p>
+                        {% endif %}
                       </div>
                     </div>
-                    <div class="field">
-                      <label for="email" class="label">{% trans "Adresse e-mail" %} *</label>
-                      <div class="control">
-                        <input name="email" id="email" class="input" type="email" placeholder="exemple@mail.com">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="column is-6">
                     <div class="field">
                       <label for="lastname" class="label">{% trans "Nom" %} *</label>
                       <div class="control">
-                        <input name="lastname" id="lastname" class="input" type="text" placeholder="Dupont">
+                        <input name="lastname" id="lastname" class="input {% if form.errors.lastname %}is-danger{% endif %}" type="text" placeholder="Dupont" value="{{ form.cleaned_data.lastname }}">
+                        {% if form.errors.lastname %}
+                          <p class="help is-danger">{% for error in form.errors.lastname %} {{ error }} {% endfor %}</p>
+                        {% endif %}
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="column is-6">
+                    <div class="field">
+                      <label for="email" class="label">{% trans "Adresse e-mail" %} *</label>
+                      <div class="control">
+                        <input name="email" id="email" class="input {% if form.errors.email %}is-danger{% endif %}" type="email" placeholder="exemple@mail.com" value="{{ form.cleaned_data.email }}">
+                        {% if form.errors.email %}
+                          <p class="help is-danger">{% for error in form.errors.email %} {{ error }} {% endfor %}</p>
+                        {% endif %}
                       </div>
                     </div>
                     <div class="field">
                       <label for="country" class="label">{% trans "Pays" %} *</label>
                       <div class="control">
-                        <input name="country" id="country" class="input" type="text" placeholder="France">
+                        <input name="country" id="country" class="input {% if form.errors.country %}is-danger{% endif %}" type="text" placeholder="France" value="{{ form.cleaned_data.country }}">
+                        {% if form.errors.country %}
+                          <p class="help is-danger">{% for error in form.errors.country %} {{ error }} {% endfor %}</p>
+                        {% endif %}
                       </div>
                     </div>
                   </div>
@@ -64,8 +81,8 @@
                 <div class="field">
                   <label for="subject" class="label">{% trans "Quelle est la raison de votre prise de contact ?" %}</label>
                   <div class="control">
-                    <div class="select">
-                      <select name="subject" id="subject">
+                    <div class="select {% if form.errors.subject %}is-danger{% endif %}">
+                      <select name="subject" id="subject"  value="{{ form.cleaned_data.subject }}">
                         <option value="{% trans "Demande d'information sur PROGYSAT" %}">{% trans "Demande d'information sur PROGYSAT" %}</option>
                         <option value="{% trans "Proposition de collaboration" %}">{% trans "Proposition de collaboration" %}</option>
                         <option value="{% trans "Partage d'Actualités" %}">{% trans "Partage d'Actualités" %}</option>
@@ -74,6 +91,9 @@
                         <option value="Autre">{% trans "Autre" %}</option>
                         </option>
                       </select>
+                      {% if form.errors.subject %}
+                        <p class="help is-danger">{% for error in form.errors.subject %} {{ error }} {% endfor %}</p>
+                      {% endif %}
                     </div>
                   </div>
                 </div>
@@ -81,16 +101,22 @@
                 <div class="field">
                   <label for="message" class="label">{% trans "Message" %}</label>
                   <div class="control">
-                    <textarea name="message" id="message" class="textarea" placeholder="Textarea"></textarea>
+                    <textarea name="message" id="message" class="textarea {% if form.errors.message %}is-danger{% endif %}" placeholder="Textarea">{{ form.cleaned_data.message }}</textarea>
+                    {% if form.errors.message %}
+                      <p class="help is-danger">{% for error in form.errors.message %} {{ error }} {% endfor %}</p>
+                    {% endif %}
                   </div>
                 </div>
 
                 <div class="field mt-5">
                   <div class="control">
-                    <label class="checkbox">
-                      <input name="agree" type="checkbox">
-                      {% trans "J'autorise ce site à conserver mes données transmises via ce formulaire" %}
+                    <label class="checkbox {% if form.errors.agree %}is-danger{% endif %}">
+                      <input name="agree" type="checkbox" {% if form.cleaned_data.agree %}checked{% endif %}>
+                      {% trans "J'autorise ce site à traiter mes données transmises via ce formulaire et les transférer à Progysat" %}
                     </label>
+                    {% if form.errors.agree %}
+                      <p class="help is-danger">{% for error in form.errors.agree %} {{ error }} {% endfor %}</p>
+                    {% endif %}
                   </div>
                 </div>
 
@@ -98,6 +124,8 @@
                   <input type="submit" class="button is-secondary" value="Envoyer">
                 </div>
               </form>
+              {% endif %}
+
             </div>
           </div>
         </div>
