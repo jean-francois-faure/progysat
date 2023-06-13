@@ -1,5 +1,7 @@
 from typing import List
 
+from django.conf import settings
+from django.core.mail import send_mail
 from django.shortcuts import render
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import RichTextField
@@ -30,6 +32,12 @@ class ContactPage(Page):
         if request.method == "POST":
             form = ContactForm(request.POST)
             if form.is_valid():
+                send_mail(
+                    subject=f"[Progysat] {form.cleaned_data['subject']}",
+                    message=form.cleaned_data["message"],
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=settings.CONTACT_RECIPIENTS,
+                )
                 return render(
                     request,
                     "progysat/contact_page.html",

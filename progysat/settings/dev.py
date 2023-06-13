@@ -21,6 +21,9 @@ INTERNAL_IPS = ("127.0.0.1",)
 INSTALLED_APPS += [  # noqa: F405
     "debug_toolbar",
 ]
+CONTACT_RECIPIENTS = [
+    "contact@telescoop.fr",
+]
 
 try:
     from .local import *  # noqa: F401,F403
