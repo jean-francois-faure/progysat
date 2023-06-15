@@ -6,6 +6,14 @@
     justify-content: center;
 }
 
+.navbar .tagline{
+    width: 270px;
+    position: absolute;
+    bottom: 31px;
+    background: white;
+    left: 88px;
+    font-size: 9px;
+}
 .navbar.is-succinct .logo-holder {
     flex-direction: row;
     align-items: center;
@@ -13,6 +21,9 @@
 
 .navbar.is-succinct, .navbar-brand {
     min-height: 4rem;
+}
+.navbar.is-succinct .tagline {
+    bottom: 16px;
 }
 
 .navbar {

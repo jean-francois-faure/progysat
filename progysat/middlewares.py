@@ -1,5 +1,7 @@
 from django.conf import settings
+from django.middleware.locale import LocaleMiddleware
 from django.templatetags.static import static
+from django.utils import translation
 
 from progysat.models import HomePage
 
@@ -66,3 +68,10 @@ class SearchDescriptionAndTranslationMiddleware:
         context["translated_urls"] = translated_urls
         context["locales"] = locales
         return response
+
+
+class CustomLocaleMiddleware(LocaleMiddleware):
+    def process_request(self, request):
+        language = settings.LANGUAGE_CODE
+        translation.activate(language)
+        request.LANGUAGE_CODE = translation.get_language()

@@ -4,8 +4,10 @@ organization_slug: telescoop
 project_slug: progysat
 main_user: progysat
 main_user_uid: 1070  # must be unique for each project on the server
-main_public_hostname: progysat.fr
+main_public_hostname: progysat.org
 public_hostnames:
+  - progysat.org
+  - www.progysat.org
   - progysat.tlscp.fr
 django_project_name: progysat
 backend_repo: git@github.com:TelesCoop/progysat.git
