@@ -1,6 +1,7 @@
 {% load static %}
 {% load main_tags %}
 {% load wagtailcore_tags %}
+{% load trans %}
 
 {% with main_thematic=resource.get_main_thematic %}
   <a href="{{ resource.link }}" {% if resource.is_download %}download{% else %}target="_blank"{% endif %}>
