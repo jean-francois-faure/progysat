@@ -20,191 +20,191 @@ msgstr ""
 #: progysat/templates/404.html:4 progysat/templates/404.html:10
 #: progysat/templates/404.html:13
 msgid "La page n'a pas été trouvée"
-msgstr ""
+msgstr "Pagina nao encontrada"
 
 #: progysat/templates/404.html:16
 msgid "Retour à l'accueil"
-msgstr ""
+msgstr "Voltar Pagina inicial"
 
 #: progysat/templates/components/breadcrumbs.html:7
 msgid "Accueil"
-msgstr ""
+msgstr "Página inicial"
 
 #: progysat/templates/components/breadcrumbs.html:9
 msgid "Actualités"
-msgstr ""
+msgstr "Atualidades"
 
 #: progysat/templates/components/breadcrumbs.html:12
 msgid "Thématiques"
-msgstr ""
+msgstr "Temas"
 
 #: progysat/templates/components/footer.html:17
 msgid "Je donne mon avis sur ce site"
-msgstr ""
+msgstr "Minha opinião sobre este site"
 
 #: progysat/templates/components/footer.html:20
 msgid "Suivez-nous"
-msgstr ""
+msgstr "Siga-nos"
 
 #: progysat/templates/components/footer.html:47
 msgid "Développé par"
-msgstr ""
+msgstr "Desenvolvido por"
 
 #: progysat/templates/components/footer.html:49
 msgid "design par"
-msgstr ""
+msgstr "design por"
 
 #: progysat/templates/components/navbar.html:89
 msgid "ressources"
-msgstr ""
+msgstr "recursos"
 
 #: progysat/templates/components/news_card.html:21
 #: progysat/templates/progysat/news_list_page.html:40
 msgid "Lire la suite"
-msgstr ""
+msgstr "Ler mais"
 
 #: progysat/templates/components/pdf_link.html:5
 msgid "Document PDF"
-msgstr ""
+msgstr "Documento PDF"
 
 #: progysat/templates/components/pdf_link.html:9
 msgid "Télécharger le PDF"
-msgstr ""
+msgstr "Carregar o PDF"
 
 #: progysat/templates/components/resource_card.html:38
 #: progysat/templates/elements/resources_page/resources_list_view.html:58
 msgid "Ressource Progysat"
-msgstr ""
+msgstr "Recursos Propgysat"
 
 #: progysat/templates/components/resource_card.html:47
 #: progysat/templates/elements/resources_page/resources_list_view.html:69
 msgid "Accéder à la ressource"
-msgstr ""
+msgstr "Acessar ao recurso"
 
 #: progysat/templates/elements/resources_page/filters.html:8
 msgid "Les thématiques qui m'intéressent"
-msgstr ""
+msgstr "Meus temas de interesse"
 
 #: progysat/templates/elements/resources_page/filters.html:17
 msgid "Toutes"
-msgstr ""
+msgstr "Todos"
 
 #: progysat/templates/elements/resources_page/filters.html:23
 msgid "Recherche par mot-clé"
-msgstr ""
+msgstr "Buscar por palavra chave"
 
 #: progysat/templates/elements/resources_page/resources_list_view.html:20
 msgid "Plusieurs thématiques"
-msgstr ""
+msgstr "Temas múltiplos"
 
 #: progysat/templates/elements/resources_page/resources_list_view.html:21
 msgid "Sans thématique"
-msgstr ""
+msgstr "Sem tema"
 
 #: progysat/templates/elements/resources_page/resources_list_view.html:42
 msgid "afficher"
-msgstr ""
+msgstr "mostrar"
 
 #: progysat/templates/elements/resources_page/resources_list_view.html:42
 msgid "moins"
-msgstr ""
+msgstr "menos"
 
 #: progysat/templates/elements/resources_page/resources_list_view.html:42
 msgid "plus"
-msgstr ""
+msgstr "mais"
 
 #: progysat/templates/elements/resources_page/resources_list_view.html:51
 msgid "Source"
-msgstr ""
+msgstr "Fonte"
 
 #: progysat/templates/progysat/contact_page.html:27
 msgid "Formulaire de contact"
-msgstr ""
+msgstr "Formulário de contato"
 
 #: progysat/templates/progysat/contact_page.html:28
 msgid "Les champs comprenant une astérisque (*) sont obligatoires."
-msgstr ""
+msgstr "Campos com (*) são obrigatórios"
 
 #: progysat/templates/progysat/contact_page.html:36
 msgid "Prénom"
-msgstr ""
+msgstr "Nome"
 
 #: progysat/templates/progysat/contact_page.html:42
 msgid "Adresse e-mail"
-msgstr ""
+msgstr "E-mail"
 
 #: progysat/templates/progysat/contact_page.html:50
 msgid "Nom"
-msgstr ""
+msgstr "Sobrenome"
 
 #: progysat/templates/progysat/contact_page.html:56
 msgid "Pays"
-msgstr ""
+msgstr "País"
 
 #: progysat/templates/progysat/contact_page.html:65
 msgid "Quelle est la raison de votre prise de contact ?"
-msgstr ""
+msgstr "Razão do seu contato"
 
 #: progysat/templates/progysat/contact_page.html:69
 msgid "Demande d'information sur PROGYSAT"
-msgstr ""
+msgstr "Pedido de informação sobre Progysat"
 
 #: progysat/templates/progysat/contact_page.html:70
 msgid "Proposition de collaboration"
-msgstr ""
+msgstr "Proposta de colaboração"
 
 #: progysat/templates/progysat/contact_page.html:71
 msgid "Partage d'Actualités"
-msgstr ""
+msgstr "Compartilho de Atualidade"
 
 #: progysat/templates/progysat/contact_page.html:72
 msgid "Partage de Ressource"
-msgstr ""
+msgstr "Compartiho de recurso"
 
 #: progysat/templates/progysat/contact_page.html:73
 msgid "Avis sur ce site web"
-msgstr ""
+msgstr "Opinião sobre este site"
 
 #: progysat/templates/progysat/contact_page.html:74
 msgid "Autre"
-msgstr ""
+msgstr "Outra"
 
 #: progysat/templates/progysat/contact_page.html:82
 msgid "Message"
-msgstr ""
+msgstr "Mensagem"
 
 #: progysat/templates/progysat/contact_page.html:92
 msgid "J'autorise ce site à conserver mes données transmises via ce formulaire"
-msgstr ""
+msgstr "Autorizo este site a conservar os dados deste Formulário"
 
 #: progysat/templates/progysat/home_page.html:26
 msgid "Toutes les actualités"
-msgstr ""
+msgstr "Todas as Atualidades"
 
 #: progysat/templates/progysat/news_list_page.html:19
 msgid "Aucune actualité publiée"
-msgstr ""
+msgstr "Nenhuma Atualidade disponvíel"
 
 #: progysat/templates/progysat/news_page.html:25
 msgid "Actualités recommandées"
-msgstr ""
+msgstr "Atualidade recomendada"
 
 #: progysat/templates/progysat/news_page.html:36
 msgid "Ressources recommandées"
-msgstr ""
+msgstr "Recurso recomendado"
 
 #: progysat/templates/progysat/resources_page.html:12
 msgid "Les ressources"
-msgstr ""
+msgstr "Os Recursos"
 
 #: progysat/templates/progysat/resources_page.html:21
 msgid "résultats correspondent à votre recherche"
-msgstr ""
+msgstr "resultados correspondem à sua busca"
 
 #: progysat/templates/progysat/resources_page.html:24
 msgid "aucun résultat correspondant"
-msgstr ""
+msgstr "nenhum resultado corresponde à sua busca"
 
 #: progysat/templates/progysat/thematics_list_page.html:30
 msgid "Voir les détails"
-msgstr ""
+msgstr "Ver detalhes"
